@@ -1,0 +1,13 @@
+{
+    "name": "hlm/mikrotik-panel",
+    "description": "MikroTik Yönetim Paneli",
+    "require": {
+        "php": ">=7.4",
+        "evilfreelancer/routeros-api-php": "^1.6"
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "includes/"
+        }
+    }
+}

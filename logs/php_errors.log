@@ -1,0 +1,315 @@
+[13-Feb-2026 16:34:51 Europe/Istanbul] PPPoE Fetch: Looking for main device...
+[13-Feb-2026 16:34:51 Europe/Istanbul] PPPoE Fetch: Main device found - Ulasnet (176.88.168.50)
+[13-Feb-2026 16:34:51 Europe/Istanbul] PPPoE Fetch: Connecting to MikroTik...
+[13-Feb-2026 16:34:52 Europe/Istanbul] PPPoE Fetch: Connected! Querying /ppp/secret/print...
+[13-Feb-2026 16:34:52 Europe/Istanbul] PPPoE Fetch: Got 92 secrets
+[13-Feb-2026 16:34:52 Europe/Istanbul] PPPoE Fetch: Found 92 valid devices, filtered 0
+[13-Feb-2026 16:42:12 Europe/Istanbul] PPPoE Fetch: Looking for main device...
+[13-Feb-2026 16:42:12 Europe/Istanbul] PPPoE Fetch: Main device found - Ulasnet (176.88.168.50)
+[13-Feb-2026 16:42:12 Europe/Istanbul] PPPoE Fetch: Connecting to MikroTik...
+[13-Feb-2026 16:42:22 Europe/Istanbul] PPPoE Fetch: MikroTik connection error - Unable to establish socket session, Bağlanılan uygun olarak belli bir süre içinde yanıt vermediğinden veya kurulan
+bağlantı bağlanılan ana bilgisayar yanıt vermediğinden bir bağlantı kurulamadı
+[13-Feb-2026 16:47:48 Europe/Istanbul] PPPoE Fetch: Looking for main device...
+[13-Feb-2026 16:47:48 Europe/Istanbul] PPPoE Fetch: Main device found - Ulasnet (176.88.168.50)
+[13-Feb-2026 16:47:48 Europe/Istanbul] PPPoE Fetch: Connecting to MikroTik...
+[13-Feb-2026 16:47:49 Europe/Istanbul] PPPoE Fetch: Connected! Querying /ppp/secret/print...
+[13-Feb-2026 16:47:49 Europe/Istanbul] PPPoE Fetch: Got 92 secrets
+[13-Feb-2026 16:47:49 Europe/Istanbul] PPPoE Fetch: Found 92 valid devices, filtered 0
+[13-Feb-2026 16:48:04 Europe/Istanbul] PPPoE Import: Added device UlasNet_Arda_1 (10.150.40.12)
+[13-Feb-2026 16:48:04 Europe/Istanbul] PPPoE Import: Added device UlasNet_Arda_2 (10.150.40.13)
+[13-Feb-2026 16:48:04 Europe/Istanbul] PPPoE Import: Added device UlasNet_Arda_3 (10.150.40.14)
+[13-Feb-2026 16:48:04 Europe/Istanbul] PPPoE Import: Added device UlasNet_Arda_4 (10.150.40.15)
+[13-Feb-2026 16:48:04 Europe/Istanbul] PPPoE Import: Added device UlasNet_Arda_Ortakoy (10.150.40.16)
+[13-Feb-2026 16:48:04 Europe/Istanbul] PPPoE Import: Added device UlasNet_Arda_Ortakoy_Qrt5_1 (10.150.40.18)
+[13-Feb-2026 16:48:04 Europe/Istanbul] PPPoE Import: Added device UlasNeT_Tetirlik_4 (10.150.10.36)
+[13-Feb-2026 16:48:04 Europe/Istanbul] PPPoE Import: Added device UlasNeT_Tepe_SQ5_3 (10.150.10.23)
+[13-Feb-2026 16:48:04 Europe/Istanbul] PPPoE Import: Added device UlasNeT_Tepe_QRT5_3 (10.150.10.16)
+[13-Feb-2026 16:48:04 Europe/Istanbul] PPPoE Import: Added device UlasNeT_Tetirlik_1 (10.150.10.33)
+[13-Feb-2026 16:48:04 Europe/Istanbul] PPPoE Import: Added device UlasNeT_Tepe_SQ5_1 (10.150.10.21)
+[13-Feb-2026 16:48:04 Europe/Istanbul] PPPoE Import: Added device UlasNeT_Tepe_HG5_2 (10.150.10.13)
+[13-Feb-2026 16:48:04 Europe/Istanbul] PPPoE Import: Added device UlasNeT_Tepe_SQ5_2 (10.150.10.22)
+[13-Feb-2026 16:48:04 Europe/Istanbul] PPPoE Import: Added device UlasNeT_Tepe_Sar_4 (10.150.10.30)
+[13-Feb-2026 16:48:04 Europe/Istanbul] PPPoE Import: Added device UlasNeT_Tepe_Sar_5 (10.150.10.31)
+[13-Feb-2026 16:48:04 Europe/Istanbul] PPPoE Import: Added device UlasNeT_Tepe_Sa5_1 (10.150.10.25)
+[13-Feb-2026 16:48:04 Europe/Istanbul] PPPoE Import: Added device UlasNeT_Tepe_SQ5_4 (10.150.10.24)
+[13-Feb-2026 16:48:04 Europe/Istanbul] PPPoE Import: Added device UlasNeT_Tepe_Sar_2 (10.150.10.28)
+[13-Feb-2026 16:48:04 Europe/Istanbul] PPPoE Import: Added device UlasNeT_Tepe_QRT5_2 (10.150.10.15)
+[13-Feb-2026 16:48:04 Europe/Istanbul] PPPoE Import: Added device UlasNeT_Tetirlik_2 (10.150.10.34)
+[13-Feb-2026 16:48:04 Europe/Istanbul] PPPoE Import: Added device UlasNeT_Tepe_HG5_1 (10.150.10.12)
+[13-Feb-2026 16:48:04 Europe/Istanbul] PPPoE Import: Added device UlasNeT_Tepe_QRT5_1 (10.150.10.14)
+[13-Feb-2026 16:48:04 Europe/Istanbul] PPPoE Import: Added device UlasNeT_Tepe_Sar_6 (10.150.10.32)
+[13-Feb-2026 16:48:04 Europe/Istanbul] PPPoE Import: Added device UlasNeT_Tetirlik_3 (10.150.10.35)
+[13-Feb-2026 16:48:04 Europe/Istanbul] PPPoE Import: Added device UlasNeT_Tepe_Sar_1 (10.150.10.27)
+[13-Feb-2026 16:48:04 Europe/Istanbul] PPPoE Import: Added device UlasNeT_Tepe_Switch_2 (10.150.10.11)
+[13-Feb-2026 16:48:04 Europe/Istanbul] PPPoE Import: Added device UlasNeT_Tepe_Sar_3 (10.150.10.29)
+[13-Feb-2026 16:48:04 Europe/Istanbul] PPPoE Import: Added device UlasNeT_Tetirlik_5 (10.150.10.37)
+[13-Feb-2026 16:48:04 Europe/Istanbul] PPPoE Import: Added device UlasNeT_Tetirlik_6 (10.150.10.38)
+[13-Feb-2026 16:48:04 Europe/Istanbul] PPPoE Import: Added device UlasNeT_Tepe_QRT5_4 (10.150.10.17)
+[13-Feb-2026 16:48:04 Europe/Istanbul] PPPoE Import: Added device UlasNeT_Tepe_QRT5_5 (10.150.10.18)
+[13-Feb-2026 16:48:04 Europe/Istanbul] PPPoE Import: Added device UlasNeT_Tepe_QRT5_6 (10.150.10.19)
+[13-Feb-2026 16:48:04 Europe/Istanbul] PPPoE Import: Added device UlasNeT_Tepe_QRT5_7 (10.150.10.20)
+[13-Feb-2026 16:48:04 Europe/Istanbul] PPPoE Import: Added device UlasNeT_CT_QRT5_2 (10.150.30.13)
+[13-Feb-2026 16:48:04 Europe/Istanbul] PPPoE Import: Added device UlasNeT_CT_SQ5_2 (10.150.30.19)
+[13-Feb-2026 16:48:04 Europe/Istanbul] PPPoE Import: Added device UlasNeT_CT_SA5_1 (10.150.30.16)
+[13-Feb-2026 16:48:04 Europe/Istanbul] PPPoE Import: Added device UlasNeT_CT_SQ5_1 (10.150.30.18)
+[13-Feb-2026 16:48:04 Europe/Istanbul] PPPoE Import: Added device UlasNeT_CT_SQ5_3 (10.150.30.20)
+[13-Feb-2026 16:48:04 Europe/Istanbul] PPPoE Import: Added device UlasNeT_CT_QRT5_3 (10.150.30.14)
+[13-Feb-2026 16:48:04 Europe/Istanbul] PPPoE Import: Added device UlasNeT_CT_SQ5_5 (10.150.30.22)
+[13-Feb-2026 16:48:04 Europe/Istanbul] PPPoE Import: Added device UlasNeT_CT_QRT5_1 (10.150.30.12)
+[13-Feb-2026 16:48:04 Europe/Istanbul] PPPoE Import: Added device UlasNeT_CT_SQ5_4 (10.150.30.21)
+[13-Feb-2026 16:48:04 Europe/Istanbul] PPPoE Import: Added device UlasNeT_CT_Switch (10.150.30.11)
+[13-Feb-2026 16:48:04 Europe/Istanbul] PPPoE Import: Added device UlasNeT_Bellona_4 (10.150.20.17)
+[13-Feb-2026 16:48:04 Europe/Istanbul] PPPoE Import: Added device UlasNeT_Bellona_2 (10.150.20.15)
+[13-Feb-2026 16:48:04 Europe/Istanbul] PPPoE Import: Added device UlasNeT_Bellona_7 (10.150.20.20)
+[13-Feb-2026 16:48:04 Europe/Istanbul] PPPoE Import: Added device UlasNeT_Bellona_Armutlu (10.150.20.27)
+[13-Feb-2026 16:48:04 Europe/Istanbul] PPPoE Import: Added device UlasNeT_Bellona_8 (10.150.20.21)
+[13-Feb-2026 16:48:04 Europe/Istanbul] PPPoE Import: Added device UlasNeT_Bellona_6 (10.150.20.19)
+[13-Feb-2026 16:48:04 Europe/Istanbul] PPPoE Import: Added device UlasNeT_Bellona_9 (10.150.20.22)
+[13-Feb-2026 16:48:04 Europe/Istanbul] PPPoE Import: Added device UlasNeT_Bellona_10 (10.150.20.23)
+[13-Feb-2026 16:48:04 Europe/Istanbul] PPPoE Import: Added device UlasNeT_Bellona_1 (10.150.20.14)
+[13-Feb-2026 16:48:04 Europe/Istanbul] PPPoE Import: Added device UlasNeT_Bellona_Cl (10.150.20.11)
+[13-Feb-2026 16:48:04 Europe/Istanbul] PPPoE Import: Added device UlasNeT_Bellona_Ap (10.150.20.10)
+[13-Feb-2026 16:48:04 Europe/Istanbul] PPPoE Import: Added device UlasNeT_Gelis_Ap (10.150.20.32)
+[13-Feb-2026 16:48:04 Europe/Istanbul] PPPoE Import: Added device UlasNeT_Gelis_Cl (10.150.20.33)
+[13-Feb-2026 16:48:04 Europe/Istanbul] PPPoE Import: Added device UlasNeT_Bellona_Kont (10.150.20.29)
+[13-Feb-2026 16:48:04 Europe/Istanbul] PPPoE Import: Added device UlasNeT_Bellona_Kont_2 (10.150.20.30)
+[13-Feb-2026 16:48:04 Europe/Istanbul] PPPoE Import: Added device UlasNeT_Bellona_Cicekalan (10.150.20.28)
+[13-Feb-2026 16:48:04 Europe/Istanbul] PPPoE Import: Added device UlasNeT_Bellona_5 (10.150.20.18)
+[13-Feb-2026 16:48:04 Europe/Istanbul] PPPoE Import: Added device UlasNeT_Bellona_Switch (10.150.20.12)
+[13-Feb-2026 16:48:04 Europe/Istanbul] PPPoE Import: Added device UlasNeT_CT_SQ5_6 (10.150.30.23)
+[13-Feb-2026 16:48:04 Europe/Istanbul] PPPoE Import: Added device UlasNeT_Bellona_3 (10.150.20.16)
+[13-Feb-2026 16:48:04 Europe/Istanbul] PPPoE Import: Added device Tepe_Arda (10.150.40.10)
+[13-Feb-2026 16:48:04 Europe/Istanbul] PPPoE Import: Added device Arda_Tepe (10.150.40.11)
+[13-Feb-2026 16:48:04 Europe/Istanbul] PPPoE Import: Added device UlasNeT_Tetirlik_Switch (10.150.50.12)
+[13-Feb-2026 16:48:04 Europe/Istanbul] PPPoE Import: Added device Ulasnet_Tetirlik_Sa5_1 (10.150.50.13)
+[13-Feb-2026 16:48:04 Europe/Istanbul] PPPoE Import: Added device Ulasnet_Tetirlik_Sa5_2 (10.150.50.14)
+[13-Feb-2026 16:48:04 Europe/Istanbul] PPPoE Import: Added device Ulasnet_Tetirlik_Sa5_3 (10.150.50.15)
+[13-Feb-2026 16:48:04 Europe/Istanbul] PPPoE Import: Added device Ulasnet_Tetirlik_Sa5_4 (10.150.50.16)
+[13-Feb-2026 16:48:04 Europe/Istanbul] PPPoE Import: Added device Ulasnet_Tetirlik_Sa5_5 (10.150.50.17)
+[13-Feb-2026 16:48:04 Europe/Istanbul] PPPoE Import: Added device Ulasnet_Tetirlik_Sa5_6 (10.150.50.18)
+[13-Feb-2026 16:48:04 Europe/Istanbul] PPPoE Import: Added device Ulasnet_Tetirlik_Sa5_7 (10.150.50.19)
+[13-Feb-2026 16:48:04 Europe/Istanbul] PPPoE Import: Added device Ulasnet_Tetirlik_Sa5_8 (10.150.50.20)
+[13-Feb-2026 16:48:04 Europe/Istanbul] PPPoE Import: Added device Ulasnet_Tetirlik_Sa5_9 (10.150.50.21)
+[13-Feb-2026 16:48:05 Europe/Istanbul] PPPoE Import: Added device Ulasnet_Tetirlik_Sa5_10 (10.150.50.22)
+[13-Feb-2026 16:48:05 Europe/Istanbul] PPPoE Import: Added device Ulasnet_Tetirlik_Sa5_11 (10.150.50.23)
+[13-Feb-2026 16:48:05 Europe/Istanbul] PPPoE Import: Added device UlasNeT_Bellona_Kont_3 (10.150.20.31)
+[13-Feb-2026 16:48:05 Europe/Istanbul] PPPoE Import: Added device UlasNeT_Bellona_11 (10.150.20.24)
+[13-Feb-2026 16:48:05 Europe/Istanbul] PPPoE Import: Added device Arda_5009 (10.150.40.9)
+[13-Feb-2026 16:48:05 Europe/Istanbul] PPPoE Import: Added device UlasNeT_Bellona_12 (10.150.20.25)
+[13-Feb-2026 16:48:05 Europe/Istanbul] PPPoE Import: Added device UlasNeT_Bellona_13 (10.150.20.26)
+[13-Feb-2026 16:48:05 Europe/Istanbul] PPPoE Import: Added device UlasNeT_Tetirlik_Ap (10.150.50.10)
+[13-Feb-2026 16:48:05 Europe/Istanbul] PPPoE Import: Added device UlasNeT_Tetirlik_Cl (10.150.50.11)
+[13-Feb-2026 16:48:05 Europe/Istanbul] PPPoE Import: Added device UlasNeT_Tepe_Sa5_2 (10.150.10.26)
+[13-Feb-2026 16:48:05 Europe/Istanbul] PPPoE Import: Added device UlasNeT_Bellona_5009 (10.150.20.13)
+[13-Feb-2026 16:48:05 Europe/Istanbul] PPPoE Import: Added device UlasNeT_CT_QRT5_4 (10.150.30.15)
+[13-Feb-2026 16:48:05 Europe/Istanbul] PPPoE Import: Added device UlasNeT_CT_SA5_2 (10.150.30.17)
+[13-Feb-2026 16:48:05 Europe/Istanbul] PPPoE Import: Added device UlasNet_Arda_Ortakoy_2 (10.150.40.17)
+[13-Feb-2026 16:48:05 Europe/Istanbul] PPPoE Import: Added device UlasNeT_Bellona_14 (10.150.20.34)
+[13-Feb-2026 16:48:05 Europe/Istanbul] PPPoE Import: Added device UlasNeT_CT_Markum_Ptp (10.150.30.24)
+[13-Feb-2026 16:48:37 Europe/Istanbul] Test device: 10.150.40.11:8728 user:admin
+[13-Feb-2026 16:48:37 Europe/Istanbul] Test successful: UlasNet_Arda_Tepe
+[13-Feb-2026 16:48:37 Europe/Istanbul] Device info updated in database for device ID: 195
+[13-Feb-2026 16:49:10 Europe/Istanbul] Test device: 10.150.40.9:8728 user:admin
+[13-Feb-2026 16:49:10 Europe/Istanbul] RouterOS Client error: Invalid user name or password
+[13-Feb-2026 16:49:21 Europe/Istanbul] PHP Fatal error:  Uncaught Error: Call to undefined function logActivity() in C:\xampp\htdocs\includes\auth.php:107
+Stack trace:
+#0 C:\xampp\htdocs\api\update-device.php(62): Auth->logActivity(1, 'device_updated', 'Cihaz g\xC3\xBCncelle...')
+#1 {main}
+  thrown in C:\xampp\htdocs\includes\auth.php on line 107
+[13-Feb-2026 16:49:26 Europe/Istanbul] Test device: 10.150.40.10:8728 user:admin
+[13-Feb-2026 16:49:26 Europe/Istanbul] Test successful: UlasNet_Tepe_Arda
+[13-Feb-2026 16:49:26 Europe/Istanbul] Device info updated in database for device ID: 194
+[13-Feb-2026 16:51:58 Europe/Istanbul] PHP Fatal error:  Uncaught Error: Call to undefined function logActivity() in C:\xampp\htdocs\includes\auth.php:107
+Stack trace:
+#0 C:\xampp\htdocs\api\update-device.php(62): Auth->logActivity(1, 'device_updated', 'Cihaz g\xC3\xBCncelle...')
+#1 {main}
+  thrown in C:\xampp\htdocs\includes\auth.php on line 107
+[13-Feb-2026 16:54:51 Europe/Istanbul] PHP Fatal error:  Uncaught Error: Call to undefined function logActivity() in C:\xampp\htdocs\includes\auth.php:107
+Stack trace:
+#0 C:\xampp\htdocs\api\update-device.php(62): Auth->logActivity(1, 'device_updated', 'Cihaz g\xC3\xBCncelle...')
+#1 {main}
+  thrown in C:\xampp\htdocs\includes\auth.php on line 107
+[13-Feb-2026 17:01:40 Europe/Istanbul] Test device: 10.150.40.12:8728 user:admin
+[13-Feb-2026 17:01:41 Europe/Istanbul] Test successful: Pazarcik-UlasNet_Arda_1 5275
+[13-Feb-2026 17:01:41 Europe/Istanbul] Device info updated in database for device ID: 131
+[13-Feb-2026 17:15:47 Europe/Istanbul] PHP Fatal error:  Uncaught Error: Call to undefined function logActivity() in C:\xampp\htdocs\includes\auth.php:107
+Stack trace:
+#0 C:\xampp\htdocs\api\update-device.php(62): Auth->logActivity(1, 'device_updated', 'Cihaz g\xC3\xBCncelle...')
+#1 {main}
+  thrown in C:\xampp\htdocs\includes\auth.php on line 107
+[13-Feb-2026 17:16:00 Europe/Istanbul] PPPoE Fetch: Looking for main device...
+[13-Feb-2026 17:16:00 Europe/Istanbul] PPPoE Fetch: Main device found - Ulasnet (176.88.168.50)
+[13-Feb-2026 17:16:00 Europe/Istanbul] PPPoE Fetch: Connecting to MikroTik...
+[13-Feb-2026 17:16:00 Europe/Istanbul] PPPoE Fetch: Connected! Querying /ppp/secret/print...
+[13-Feb-2026 17:16:00 Europe/Istanbul] PPPoE Fetch: Got 92 secrets
+[13-Feb-2026 17:16:00 Europe/Istanbul] PPPoE Fetch: Found 92 valid devices, filtered 0
+[13-Feb-2026 17:16:35 Europe/Istanbul] PPPoE Fetch: Looking for main device...
+[13-Feb-2026 17:16:35 Europe/Istanbul] PPPoE Fetch: No main device found
+[13-Feb-2026 17:16:53 Europe/Istanbul] Test device: 176.88.168.50:8728 user:admin
+[13-Feb-2026 17:16:54 Europe/Istanbul] Test successful: Pazarcik_Tepe_2116
+[13-Feb-2026 17:16:57 Europe/Istanbul] Test device: 176.88.168.50:8728 user:admin
+[13-Feb-2026 17:16:57 Europe/Istanbul] Test successful: Pazarcik_Tepe_2116
+[13-Feb-2026 17:16:57 Europe/Istanbul] Device info updated in database for device ID: 222
+[13-Feb-2026 17:17:01 Europe/Istanbul] PPPoE Fetch: Looking for main device...
+[13-Feb-2026 17:17:01 Europe/Istanbul] PPPoE Fetch: Main device found - tepe (176.88.168.50)
+[13-Feb-2026 17:17:01 Europe/Istanbul] PPPoE Fetch: Connecting to MikroTik...
+[13-Feb-2026 17:17:02 Europe/Istanbul] PPPoE Fetch: Connected! Querying /ppp/secret/print...
+[13-Feb-2026 17:17:03 Europe/Istanbul] PPPoE Fetch: Got 92 secrets
+[13-Feb-2026 17:17:03 Europe/Istanbul] PPPoE Fetch: Found 92 valid devices, filtered 0
+[13-Feb-2026 17:17:19 Europe/Istanbul] PPPoE Import: Added device UlasNet_Arda_1 (10.150.40.12)
+[13-Feb-2026 17:17:19 Europe/Istanbul] PPPoE Import: Added device UlasNet_Arda_2 (10.150.40.13)
+[13-Feb-2026 17:17:19 Europe/Istanbul] PPPoE Import: Added device UlasNet_Arda_3 (10.150.40.14)
+[13-Feb-2026 17:17:19 Europe/Istanbul] PPPoE Import: Added device UlasNet_Arda_4 (10.150.40.15)
+[13-Feb-2026 17:17:19 Europe/Istanbul] PPPoE Import: Added device UlasNet_Arda_Ortakoy (10.150.40.16)
+[13-Feb-2026 17:17:19 Europe/Istanbul] PPPoE Import: Added device UlasNet_Arda_Ortakoy_Qrt5_1 (10.150.40.18)
+[13-Feb-2026 17:17:19 Europe/Istanbul] PPPoE Import: Added device UlasNeT_Tetirlik_4 (10.150.10.36)
+[13-Feb-2026 17:17:19 Europe/Istanbul] PPPoE Import: Added device UlasNeT_Tepe_SQ5_3 (10.150.10.23)
+[13-Feb-2026 17:17:19 Europe/Istanbul] PPPoE Import: Added device UlasNeT_Tepe_QRT5_3 (10.150.10.16)
+[13-Feb-2026 17:17:19 Europe/Istanbul] PPPoE Import: Added device UlasNeT_Tetirlik_1 (10.150.10.33)
+[13-Feb-2026 17:17:19 Europe/Istanbul] PPPoE Import: Added device UlasNeT_Tepe_SQ5_1 (10.150.10.21)
+[13-Feb-2026 17:17:19 Europe/Istanbul] PPPoE Import: Added device UlasNeT_Tepe_HG5_2 (10.150.10.13)
+[13-Feb-2026 17:17:19 Europe/Istanbul] PPPoE Import: Added device UlasNeT_Tepe_SQ5_2 (10.150.10.22)
+[13-Feb-2026 17:17:19 Europe/Istanbul] PPPoE Import: Added device UlasNeT_Tepe_Sar_4 (10.150.10.30)
+[13-Feb-2026 17:17:19 Europe/Istanbul] PPPoE Import: Added device UlasNeT_Tepe_Sar_5 (10.150.10.31)
+[13-Feb-2026 17:17:19 Europe/Istanbul] PPPoE Import: Added device UlasNeT_Tepe_Sa5_1 (10.150.10.25)
+[13-Feb-2026 17:17:19 Europe/Istanbul] PPPoE Import: Added device UlasNeT_Tepe_SQ5_4 (10.150.10.24)
+[13-Feb-2026 17:17:19 Europe/Istanbul] PPPoE Import: Added device UlasNeT_Tepe_Sar_2 (10.150.10.28)
+[13-Feb-2026 17:17:19 Europe/Istanbul] PPPoE Import: Added device UlasNeT_Tepe_QRT5_2 (10.150.10.15)
+[13-Feb-2026 17:17:19 Europe/Istanbul] PPPoE Import: Added device UlasNeT_Tetirlik_2 (10.150.10.34)
+[13-Feb-2026 17:17:19 Europe/Istanbul] PPPoE Import: Added device UlasNeT_Tepe_HG5_1 (10.150.10.12)
+[13-Feb-2026 17:17:19 Europe/Istanbul] PPPoE Import: Added device UlasNeT_Tepe_Switch_1 (10.150.10.10)
+[13-Feb-2026 17:17:19 Europe/Istanbul] PPPoE Import: Added device UlasNeT_Tepe_QRT5_1 (10.150.10.14)
+[13-Feb-2026 17:17:19 Europe/Istanbul] PPPoE Import: Added device UlasNeT_Tepe_Sar_6 (10.150.10.32)
+[13-Feb-2026 17:17:19 Europe/Istanbul] PPPoE Import: Added device UlasNeT_Tetirlik_3 (10.150.10.35)
+[13-Feb-2026 17:17:19 Europe/Istanbul] PPPoE Import: Added device UlasNeT_Tepe_Sar_1 (10.150.10.27)
+[13-Feb-2026 17:17:19 Europe/Istanbul] PPPoE Import: Added device UlasNeT_Tepe_Switch_2 (10.150.10.11)
+[13-Feb-2026 17:17:19 Europe/Istanbul] PPPoE Import: Added device UlasNeT_Tepe_Sar_3 (10.150.10.29)
+[13-Feb-2026 17:17:19 Europe/Istanbul] PPPoE Import: Added device UlasNeT_Tetirlik_5 (10.150.10.37)
+[13-Feb-2026 17:17:19 Europe/Istanbul] PPPoE Import: Added device UlasNeT_Tetirlik_6 (10.150.10.38)
+[13-Feb-2026 17:17:19 Europe/Istanbul] PPPoE Import: Added device UlasNeT_Tepe_QRT5_4 (10.150.10.17)
+[13-Feb-2026 17:17:19 Europe/Istanbul] PPPoE Import: Added device UlasNeT_Tepe_QRT5_5 (10.150.10.18)
+[13-Feb-2026 17:17:19 Europe/Istanbul] PPPoE Import: Added device UlasNeT_Tepe_QRT5_6 (10.150.10.19)
+[13-Feb-2026 17:17:19 Europe/Istanbul] PPPoE Import: Added device UlasNeT_Tepe_QRT5_7 (10.150.10.20)
+[13-Feb-2026 17:17:19 Europe/Istanbul] PPPoE Import: Added device UlasNeT_CT_QRT5_2 (10.150.30.13)
+[13-Feb-2026 17:17:19 Europe/Istanbul] PPPoE Import: Added device UlasNeT_CT_SQ5_2 (10.150.30.19)
+[13-Feb-2026 17:17:19 Europe/Istanbul] PPPoE Import: Added device UlasNeT_CT_SA5_1 (10.150.30.16)
+[13-Feb-2026 17:17:19 Europe/Istanbul] PPPoE Import: Added device UlasNeT_CT_SQ5_1 (10.150.30.18)
+[13-Feb-2026 17:17:19 Europe/Istanbul] PPPoE Import: Added device UlasNeT_CT_SQ5_3 (10.150.30.20)
+[13-Feb-2026 17:17:19 Europe/Istanbul] PPPoE Import: Added device UlasNeT_CT_QRT5_3 (10.150.30.14)
+[13-Feb-2026 17:17:19 Europe/Istanbul] PPPoE Import: Added device UlasNeT_CT_SQ5_5 (10.150.30.22)
+[13-Feb-2026 17:17:19 Europe/Istanbul] PPPoE Import: Added device UlasNeT_CT_QRT5_1 (10.150.30.12)
+[13-Feb-2026 17:17:19 Europe/Istanbul] PPPoE Import: Added device UlasNeT_CT_SQ5_4 (10.150.30.21)
+[13-Feb-2026 17:17:19 Europe/Istanbul] PPPoE Import: Added device UlasNeT_CT_Switch (10.150.30.11)
+[13-Feb-2026 17:17:19 Europe/Istanbul] PPPoE Import: Added device UlasNeT_Bellona_4 (10.150.20.17)
+[13-Feb-2026 17:17:19 Europe/Istanbul] PPPoE Import: Added device UlasNeT_Bellona_2 (10.150.20.15)
+[13-Feb-2026 17:17:19 Europe/Istanbul] PPPoE Import: Added device UlasNeT_Bellona_7 (10.150.20.20)
+[13-Feb-2026 17:17:19 Europe/Istanbul] PPPoE Import: Added device UlasNeT_Bellona_Armutlu (10.150.20.27)
+[13-Feb-2026 17:17:19 Europe/Istanbul] PPPoE Import: Added device UlasNeT_Bellona_8 (10.150.20.21)
+[13-Feb-2026 17:17:19 Europe/Istanbul] PPPoE Import: Added device UlasNeT_Bellona_6 (10.150.20.19)
+[13-Feb-2026 17:17:19 Europe/Istanbul] PPPoE Import: Added device UlasNeT_Bellona_9 (10.150.20.22)
+[13-Feb-2026 17:17:19 Europe/Istanbul] PPPoE Import: Added device UlasNeT_Bellona_10 (10.150.20.23)
+[13-Feb-2026 17:17:19 Europe/Istanbul] PPPoE Import: Added device UlasNeT_Bellona_1 (10.150.20.14)
+[13-Feb-2026 17:17:19 Europe/Istanbul] PPPoE Import: Added device UlasNeT_Bellona_Cl (10.150.20.11)
+[13-Feb-2026 17:17:19 Europe/Istanbul] PPPoE Import: Added device UlasNeT_Bellona_Ap (10.150.20.10)
+[13-Feb-2026 17:17:19 Europe/Istanbul] PPPoE Import: Added device UlasNeT_Gelis_Ap (10.150.20.32)
+[13-Feb-2026 17:17:19 Europe/Istanbul] PPPoE Import: Added device UlasNeT_Gelis_Cl (10.150.20.33)
+[13-Feb-2026 17:17:19 Europe/Istanbul] PPPoE Import: Added device UlasNeT_Bellona_Kont (10.150.20.29)
+[13-Feb-2026 17:17:19 Europe/Istanbul] PPPoE Import: Added device UlasNeT_Bellona_Kont_2 (10.150.20.30)
+[13-Feb-2026 17:17:19 Europe/Istanbul] PPPoE Import: Added device UlasNeT_Bellona_Cicekalan (10.150.20.28)
+[13-Feb-2026 17:17:19 Europe/Istanbul] PPPoE Import: Added device UlasNeT_Bellona_5 (10.150.20.18)
+[13-Feb-2026 17:17:19 Europe/Istanbul] PPPoE Import: Added device UlasNeT_Bellona_Switch (10.150.20.12)
+[13-Feb-2026 17:17:19 Europe/Istanbul] PPPoE Import: Added device UlasNeT_CT_SQ5_6 (10.150.30.23)
+[13-Feb-2026 17:17:19 Europe/Istanbul] PPPoE Import: Added device UlasNeT_Bellona_3 (10.150.20.16)
+[13-Feb-2026 17:17:19 Europe/Istanbul] PPPoE Import: Added device Tepe_Arda (10.150.40.10)
+[13-Feb-2026 17:17:19 Europe/Istanbul] PPPoE Import: Added device Arda_Tepe (10.150.40.11)
+[13-Feb-2026 17:17:19 Europe/Istanbul] PPPoE Import: Added device UlasNeT_Tetirlik_Switch (10.150.50.12)
+[13-Feb-2026 17:17:19 Europe/Istanbul] PPPoE Import: Added device Ulasnet_Tetirlik_Sa5_1 (10.150.50.13)
+[13-Feb-2026 17:17:19 Europe/Istanbul] PPPoE Import: Added device Ulasnet_Tetirlik_Sa5_2 (10.150.50.14)
+[13-Feb-2026 17:17:19 Europe/Istanbul] PPPoE Import: Added device Ulasnet_Tetirlik_Sa5_3 (10.150.50.15)
+[13-Feb-2026 17:17:19 Europe/Istanbul] PPPoE Import: Added device Ulasnet_Tetirlik_Sa5_4 (10.150.50.16)
+[13-Feb-2026 17:17:19 Europe/Istanbul] PPPoE Import: Added device Ulasnet_Tetirlik_Sa5_5 (10.150.50.17)
+[13-Feb-2026 17:17:19 Europe/Istanbul] PPPoE Import: Added device Ulasnet_Tetirlik_Sa5_6 (10.150.50.18)
+[13-Feb-2026 17:17:19 Europe/Istanbul] PPPoE Import: Added device Ulasnet_Tetirlik_Sa5_7 (10.150.50.19)
+[13-Feb-2026 17:17:19 Europe/Istanbul] PPPoE Import: Added device Ulasnet_Tetirlik_Sa5_8 (10.150.50.20)
+[13-Feb-2026 17:17:19 Europe/Istanbul] PPPoE Import: Added device Ulasnet_Tetirlik_Sa5_9 (10.150.50.21)
+[13-Feb-2026 17:17:19 Europe/Istanbul] PPPoE Import: Added device Ulasnet_Tetirlik_Sa5_10 (10.150.50.22)
+[13-Feb-2026 17:17:19 Europe/Istanbul] PPPoE Import: Added device Ulasnet_Tetirlik_Sa5_11 (10.150.50.23)
+[13-Feb-2026 17:17:19 Europe/Istanbul] PPPoE Import: Added device UlasNeT_Bellona_Kont_3 (10.150.20.31)
+[13-Feb-2026 17:17:19 Europe/Istanbul] PPPoE Import: Added device UlasNeT_Bellona_11 (10.150.20.24)
+[13-Feb-2026 17:17:19 Europe/Istanbul] PPPoE Import: Added device Arda_5009 (10.150.40.9)
+[13-Feb-2026 17:17:19 Europe/Istanbul] PPPoE Import: Added device UlasNeT_Bellona_12 (10.150.20.25)
+[13-Feb-2026 17:17:19 Europe/Istanbul] PPPoE Import: Added device UlasNeT_Bellona_13 (10.150.20.26)
+[13-Feb-2026 17:17:19 Europe/Istanbul] PPPoE Import: Added device UlasNeT_Tetirlik_Ap (10.150.50.10)
+[13-Feb-2026 17:17:19 Europe/Istanbul] PPPoE Import: Added device UlasNeT_Tetirlik_Cl (10.150.50.11)
+[13-Feb-2026 17:17:19 Europe/Istanbul] PPPoE Import: Added device UlasNeT_Tepe_Sa5_2 (10.150.10.26)
+[13-Feb-2026 17:17:19 Europe/Istanbul] PPPoE Import: Added device UlasNeT_Bellona_5009 (10.150.20.13)
+[13-Feb-2026 17:17:19 Europe/Istanbul] PPPoE Import: Added device UlasNeT_CT_QRT5_4 (10.150.30.15)
+[13-Feb-2026 17:17:19 Europe/Istanbul] PPPoE Import: Added device UlasNeT_CT_SA5_2 (10.150.30.17)
+[13-Feb-2026 17:17:19 Europe/Istanbul] PPPoE Import: Added device UlasNet_Arda_Ortakoy_2 (10.150.40.17)
+[13-Feb-2026 17:17:19 Europe/Istanbul] PPPoE Import: Added device UlasNeT_Bellona_14 (10.150.20.34)
+[13-Feb-2026 17:17:19 Europe/Istanbul] PPPoE Import: Added device UlasNeT_CT_Markum_Ptp (10.150.30.24)
+[13-Feb-2026 17:17:23 Europe/Istanbul] Test device: 10.150.40.11:8728 user:admin
+[13-Feb-2026 17:17:23 Europe/Istanbul] Test successful: UlasNet_Arda_Tepe
+[13-Feb-2026 17:17:23 Europe/Istanbul] Device info updated in database for device ID: 288
+[13-Feb-2026 17:18:08 Europe/Istanbul] Test device: 10.150.40.10:8728 user:admin
+[13-Feb-2026 17:18:08 Europe/Istanbul] Test successful: UlasNet_Tepe_Arda
+[13-Feb-2026 17:18:08 Europe/Istanbul] Device info updated in database for device ID: 287
+[13-Feb-2026 17:24:19 Europe/Istanbul] PPPoE Fetch: Looking for main device...
+[13-Feb-2026 17:24:19 Europe/Istanbul] PPPoE Fetch: Main device found - tepe (176.88.168.50)
+[13-Feb-2026 17:24:19 Europe/Istanbul] PPPoE Fetch: Connecting to MikroTik...
+[13-Feb-2026 17:24:20 Europe/Istanbul] PPPoE Fetch: Connected! Querying /ppp/secret/print...
+[13-Feb-2026 17:24:20 Europe/Istanbul] PPPoE Fetch: Got 92 secrets
+[13-Feb-2026 17:24:20 Europe/Istanbul] PPPoE Fetch: Found 92 valid devices, filtered 0
+[13-Feb-2026 17:24:29 Europe/Istanbul] WinBox original file size: 14879
+[13-Feb-2026 17:24:29 Europe/Istanbul] WinBox cleaned content length: 12496
+[13-Feb-2026 17:24:29 Europe/Istanbul] Device line: group1Tepe host10.150.10.10 keep-pwd loginadmin noteUlasNeT_Tepe_Switch_1 pwd3115595 secure-mode typeaddr
+[13-Feb-2026 17:24:29 Europe/Istanbul] Device line: group1Tepe host10.150.10.11 keep-pwd loginadmin noteUlasNeT_Tepe_Switch_2 pwd3115595 secure-mode typeaddr
+[13-Feb-2026 17:24:29 Europe/Istanbul] Device line: group1Tepe host10.150.10.12 keep-pwd loginadmin noteUlasNeT_Tepe_HG5_1 pwd3115595 secure-mode typeaddr
+[13-Feb-2026 17:24:29 Europe/Istanbul] Device line: group1Tepe host10.150.10.13 keep-pwd loginadmin noteUlasNeT_Tepe_HG5_2 pwd3115595 secure-mode typeaddr
+[13-Feb-2026 17:24:29 Europe/Istanbul] Device line: group1Tepe host10.150.10.14 keep-pwd loginadmin noteUlasNeT_Tepe_QRT5_1 pwd3115595 secure-mode typeaddr
+[13-Feb-2026 17:24:29 Europe/Istanbul] Device line: group1Tepe host10.150.10.15 keep-pwd loginadmin noteUlasNeT_Tepe_QRT5_2 pwd3115595 secure-mode typeaddr
+[13-Feb-2026 17:24:29 Europe/Istanbul] Device line: group1Tepe host10.150.10.16 keep-pwd loginadmin noteUlasNeT_Tepe_QRT5_3 pwd3115595 secure-mode typeaddr
+[13-Feb-2026 17:24:29 Europe/Istanbul] Device line: group1Tepe host10.150.10.17 keep-pwd loginadmin noteUlasNeT_Tepe_QRT5_4 pwd3115595 secure-mode typeaddr
+[13-Feb-2026 17:24:29 Europe/Istanbul] Device line: group1Tepe host10.150.10.18 keep-pwd loginadmin noteUlasNeT_Tepe_QRT5_5 pwd3115595 secure-mode typeaddr
+[13-Feb-2026 17:24:29 Europe/Istanbul] Device line: group1Tepe host10.150.10.19 keep-pwd loginadmin noteUlasNeT_Tepe_QRT5_6 pwd3115595 secure-mode typeaddr
+[13-Feb-2026 17:24:29 Europe/Istanbul] WinBox parsed devices count: 119
+[13-Feb-2026 17:24:29 Europe/Istanbul] Parse success: 119 devices, 7 groups
+[13-Feb-2026 17:25:26 Europe/Istanbul] PHP Fatal error:  Uncaught Error: Call to undefined function logActivity() in C:\xampp\htdocs\includes\auth.php:107
+Stack trace:
+#0 C:\xampp\htdocs\api\update-device.php(62): Auth->logActivity(1, 'device_updated', 'Cihaz g\xC3\xBCncelle...')
+#1 {main}
+  thrown in C:\xampp\htdocs\includes\auth.php on line 107
+[13-Feb-2026 17:26:06 Europe/Istanbul] PHP Fatal error:  Uncaught Error: Call to undefined function logActivity() in C:\xampp\htdocs\includes\auth.php:107
+Stack trace:
+#0 C:\xampp\htdocs\api\update-device.php(62): Auth->logActivity(1, 'device_updated', 'Cihaz g\xC3\xBCncelle...')
+#1 {main}
+  thrown in C:\xampp\htdocs\includes\auth.php on line 107
+[13-Feb-2026 17:26:13 Europe/Istanbul] WinBox original file size: 14879
+[13-Feb-2026 17:26:13 Europe/Istanbul] WinBox cleaned content length: 12496
+[13-Feb-2026 17:26:13 Europe/Istanbul] Device line: group1Tepe host10.150.10.10 keep-pwd loginadmin noteUlasNeT_Tepe_Switch_1 pwd3115595 secure-mode typeaddr
+[13-Feb-2026 17:26:13 Europe/Istanbul] Device line: group1Tepe host10.150.10.11 keep-pwd loginadmin noteUlasNeT_Tepe_Switch_2 pwd3115595 secure-mode typeaddr
+[13-Feb-2026 17:26:13 Europe/Istanbul] Device line: group1Tepe host10.150.10.12 keep-pwd loginadmin noteUlasNeT_Tepe_HG5_1 pwd3115595 secure-mode typeaddr
+[13-Feb-2026 17:26:13 Europe/Istanbul] Device line: group1Tepe host10.150.10.13 keep-pwd loginadmin noteUlasNeT_Tepe_HG5_2 pwd3115595 secure-mode typeaddr
+[13-Feb-2026 17:26:13 Europe/Istanbul] Device line: group1Tepe host10.150.10.14 keep-pwd loginadmin noteUlasNeT_Tepe_QRT5_1 pwd3115595 secure-mode typeaddr
+[13-Feb-2026 17:26:13 Europe/Istanbul] Device line: group1Tepe host10.150.10.15 keep-pwd loginadmin noteUlasNeT_Tepe_QRT5_2 pwd3115595 secure-mode typeaddr
+[13-Feb-2026 17:26:13 Europe/Istanbul] Device line: group1Tepe host10.150.10.16 keep-pwd loginadmin noteUlasNeT_Tepe_QRT5_3 pwd3115595 secure-mode typeaddr
+[13-Feb-2026 17:26:13 Europe/Istanbul] Device line: group1Tepe host10.150.10.17 keep-pwd loginadmin noteUlasNeT_Tepe_QRT5_4 pwd3115595 secure-mode typeaddr
+[13-Feb-2026 17:26:13 Europe/Istanbul] Device line: group1Tepe host10.150.10.18 keep-pwd loginadmin noteUlasNeT_Tepe_QRT5_5 pwd3115595 secure-mode typeaddr
+[13-Feb-2026 17:26:13 Europe/Istanbul] Device line: group1Tepe host10.150.10.19 keep-pwd loginadmin noteUlasNeT_Tepe_QRT5_6 pwd3115595 secure-mode typeaddr
+[13-Feb-2026 17:26:13 Europe/Istanbul] WinBox parsed devices count: 119
+[13-Feb-2026 17:26:13 Europe/Istanbul] Parse success: 119 devices, 7 groups
+[13-Feb-2026 17:26:17 Europe/Istanbul] PPPoE Fetch: Looking for main device...
+[13-Feb-2026 17:26:17 Europe/Istanbul] PPPoE Fetch: Main device found - tepe (176.88.168.50)
+[13-Feb-2026 17:26:17 Europe/Istanbul] PPPoE Fetch: Connecting to MikroTik...
+[13-Feb-2026 17:26:18 Europe/Istanbul] PPPoE Fetch: Connected! Querying /ppp/secret/print...
+[13-Feb-2026 17:26:18 Europe/Istanbul] PPPoE Fetch: Got 92 secrets
+[13-Feb-2026 17:26:18 Europe/Istanbul] PPPoE Fetch: Found 92 valid devices, filtered 0
+[13-Feb-2026 17:26:27 Europe/Istanbul] PPPoE Fetch: Looking for main device...
+[13-Feb-2026 17:26:27 Europe/Istanbul] PPPoE Fetch: Main device found - tepe (176.88.168.50)
+[13-Feb-2026 17:26:27 Europe/Istanbul] PPPoE Fetch: Connecting to MikroTik...
+[13-Feb-2026 17:26:28 Europe/Istanbul] PPPoE Fetch: Connected! Querying /ppp/secret/print...
+[13-Feb-2026 17:26:28 Europe/Istanbul] PPPoE Fetch: Got 92 secrets
+[13-Feb-2026 17:26:28 Europe/Istanbul] PPPoE Fetch: Found 92 valid devices, filtered 0
+[13-Feb-2026 17:27:17 Europe/Istanbul] Test device: 10.150.40.12:8728 user:admin
+[13-Feb-2026 17:27:17 Europe/Istanbul] Test successful: Pazarcik-UlasNet_Arda_1 5275
+[13-Feb-2026 17:27:17 Europe/Istanbul] Device info updated in database for device ID: 223
