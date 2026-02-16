@@ -411,8 +411,13 @@ class UpdateManager {
             $rows = $this->db->fetchAll("SELECT * FROM `$tableName`");
             if (!empty($rows)) {
                 foreach ($rows as $row) {
-                    $values = array_map(function($val) {
-                        return $val === null ? 'NULL' : "'" . addslashes($val) . "'";
+                    $values = array_map(function($val) use ($tableName) {
+                        if ($val === null) {
+                            return 'NULL';
+                        }
+                        // MySQL gerçek escape kullan
+                        $conn = $this->db->getConnection();
+                        return "'" . $conn->quote($val) . "'";
                     }, array_values($row));
                     
                     $sql .= "INSERT INTO `$tableName` VALUES (" . implode(', ', $values) . ");\n";
@@ -473,8 +478,21 @@ class UpdateManager {
             $dbBackup = $extractPath . 'database-backup.sql';
             if (file_exists($dbBackup)) {
                 $sql = file_get_contents($dbBackup);
+                
+                // SQL dosyasının bizim backup sistemimizden geldiğini doğrula
+                if (strpos($sql, '-- HLM Database Backup') !== 0) {
+                    throw new Exception('Geçersiz yedek dosyası formatı');
+                }
+                
+                // SQL'i satır satır çalıştır (güvenlik için)
                 $conn = $this->db->getConnection();
-                $conn->exec($sql);
+                $statements = array_filter(array_map('trim', explode(';', $sql)));
+                
+                foreach ($statements as $statement) {
+                    if (!empty($statement) && strpos($statement, '--') !== 0) {
+                        $conn->exec($statement);
+                    }
+                }
                 $restoredItems[] = 'database';
             }
             
@@ -524,9 +542,10 @@ class UpdateManager {
             // Maksimum yedek sayısını kontrol et
             $backupCount = $this->db->fetchOne("SELECT COUNT(*) as count FROM system_backups");
             if ($backupCount['count'] > UPDATE_MAX_BACKUPS) {
-                $excess = $backupCount['count'] - UPDATE_MAX_BACKUPS;
+                $excess = intval($backupCount['count'] - UPDATE_MAX_BACKUPS);
                 $oldestBackups = $this->db->fetchAll(
-                    "SELECT * FROM system_backups ORDER BY created_at ASC LIMIT $excess"
+                    "SELECT * FROM system_backups ORDER BY created_at ASC LIMIT ?",
+                    [$excess]
                 );
                 
                 foreach ($oldestBackups as $backup) {

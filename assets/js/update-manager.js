@@ -222,8 +222,10 @@ function handleOfflineUpdate(e) {
     e.preventDefault();
     
     const formData = new FormData(this);
+    // Versiyon POST data olarak gönderilmeli
     const version = document.getElementById('updateVersion').value;
     formData.append('version', version);
+    formData.append('source', 'offline');
     
     Swal.fire({
         title: 'Güncelleme Yükleniyor',
@@ -456,8 +458,18 @@ function formatDate(dateString) {
 }
 
 function formatChangelog(changelog) {
-    // Markdown'ı basit HTML'e çevir
-    return changelog
+    // Güvenlik: Önce HTML escape yap
+    const escapeHtml = (text) => {
+        const div = document.createElement('div');
+        div.textContent = text;
+        return div.innerHTML;
+    };
+    
+    // HTML escape edilmiş metni al
+    let escaped = escapeHtml(changelog);
+    
+    // Güvenli Markdown'ı HTML'e çevir
+    return escaped
         .replace(/### (.*)/g, '<h6>$1</h6>')
         .replace(/## (.*)/g, '<h5>$1</h5>')
         .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')

@@ -45,7 +45,10 @@ try {
     // POST verisini al
     $input = json_decode(file_get_contents('php://input'), true);
     
-    if (!isset($input['source'])) {
+    // Offline güncelleme için source'u kontrol et
+    $source = $_POST['source'] ?? ($input['source'] ?? null);
+    
+    if (!$source) {
         http_response_code(400);
         echo json_encode([
             'success' => false,
@@ -53,8 +56,6 @@ try {
         ], JSON_UNESCAPED_UNICODE);
         exit;
     }
-    
-    $source = $input['source'];
     $result = null;
     
     if ($source === 'online') {
@@ -103,8 +104,8 @@ try {
             exit;
         }
         
-        // Versiyon bilgisini kontrol et
-        $version = $input['version'] ?? 'unknown';
+        // Versiyon bilgisini POST'tan al (offline için form data kullanılır)
+        $version = $_POST['version'] ?? ($input['version'] ?? 'unknown');
         
         // Güncellemeyi uygula
         $result = $updateManager->applyUpdate($targetFile, $version);

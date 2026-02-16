@@ -7,6 +7,7 @@
  */
 
 // GitHub API Ayarları
+// NOT: Aşağıdaki URL'yi kendi repository'nize göre güncelleyin
 define('UPDATE_CHECK_URL', 'https://api.github.com/repos/teknologelis-stack/hlm/releases/latest');
 define('UPDATE_RELEASES_URL', 'https://api.github.com/repos/teknologelis-stack/hlm/releases');
 
