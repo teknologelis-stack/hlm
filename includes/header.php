@@ -124,13 +124,13 @@ $currentPage = basename($_SERVER['PHP_SELF'], '.php');
                     <?php if ($auth->hasPermission('settings_manage')): ?>
                     <li class="menu-header">Panel Yönetimi</li>
                     
-                    <li class="has-submenu <?php echo in_array($currentPage, ['user-management', 'roles', 'settings']) ? 'active' : ''; ?>">
+                    <li class="has-submenu <?php echo in_array($currentPage, ['user-management', 'roles', 'settings', 'update-manager']) ? 'active' : ''; ?>">
                         <a href="#panelSubmenu" data-bs-toggle="collapse">
                             <i class="bi bi-gear"></i>
                             <span>Panel Ayarları</span>
                             <i class="bi bi-chevron-down arrow"></i>
                         </a>
-                        <ul class="collapse submenu <?php echo in_array($currentPage, ['user-management', 'roles', 'settings']) ? 'show' : ''; ?>" id="panelSubmenu">
+                        <ul class="collapse submenu <?php echo in_array($currentPage, ['user-management', 'roles', 'settings', 'update-manager']) ? 'show' : ''; ?>" id="panelSubmenu">
                             <li class="<?php echo $currentPage == 'user-management' ? 'active' : ''; ?>">
                                 <a href="<?php echo BASE_URL; ?>/pages/panel-settings/user-management.php">
                                     <i class="bi bi-person-gear"></i>
@@ -147,6 +147,12 @@ $currentPage = basename($_SERVER['PHP_SELF'], '.php');
                                 <a href="<?php echo BASE_URL; ?>/pages/panel-settings/settings.php">
                                     <i class="bi bi-sliders"></i>
                                     <span>Ayarlar</span>
+                                </a>
+                            </li>
+                            <li class="<?php echo $currentPage == 'update-manager' ? 'active' : ''; ?>">
+                                <a href="<?php echo BASE_URL; ?>/pages/system-settings/update-manager.php">
+                                    <i class="bi bi-cloud-arrow-down"></i>
+                                    <span>Güncelleme Yöneticisi</span>
                                 </a>
                             </li>
                         </ul>

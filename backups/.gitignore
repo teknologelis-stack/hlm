@@ -1,0 +1,8 @@
+# Yedek ve geçici dosyalar
+*.zip
+*.sql
+*.tar.gz
+*.bak
+
+# Dizinler hariç
+!.gitkeep
