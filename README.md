@@ -19,6 +19,47 @@ A minimal, modern MikroTik management panel with a built-in system update manage
 
 ## Installation
 
+### 1. Veritabanı Oluştur
+
+```sql
+CREATE DATABASE mikrotik_panel CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+```
+
+### 2. Migration Çalıştır
+
+phpMyAdmin'de veya MySQL CLI'da:
+
+```bash
+mysql -u root -p mikrotik_panel < database/migrations/001_create_update_system.sql
+```
+
+### 3. config/database.php Ayarla
+
+```php
+$host = 'localhost';
+$dbname = 'mikrotik_panel';
+$username = 'root';
+$password = '';
+```
+
+### 4. Klasörleri Oluştur
+
+```bash
+mkdir -p temp backups logs
+```
+
+### 5. İlk Giriş
+
+- URL: `http://localhost/index.php`
+- Kullanıcı: `admin`
+- Şifre: `admin`
+
+### 6. Güncelleme Sistemi
+
+Update Manager: `http://localhost/pages/update-manager.php`
+
+## Previous Installation Instructions (Alternative)
+
 1. Clone the repository:
 ```bash
 git clone https://github.com/teknologelis-stack/hlm.git
@@ -33,10 +74,10 @@ mysql -u root -p mikrotik_panel < config/migrations/init.sql
 
 3. Configure database connection in `config/database.php`:
 ```php
-private $host = 'localhost';
-private $dbname = 'mikrotik_panel';  // Must match the database you created
-private $username = 'root';
-private $password = '';  // Set your MySQL password here
+$host = 'localhost';
+$dbname = 'mikrotik_panel';  // Must match the database you created
+$username = 'root';
+$password = '';  // Set your MySQL password here
 ```
 
 4. Set appropriate permissions:
