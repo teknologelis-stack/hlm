@@ -41,13 +41,19 @@ class Auth {
             if (password_verify($password, $user['password'])) {
                 error_log("[Auth] Password verified successfully using bcrypt");
                 
-                // Update last login
-                $updateStmt = $this->db->prepare("UPDATE users SET last_login = ? WHERE id = ?");
-                $updateStmt->execute([date('Y-m-d H:i:s'), $user['id']]);
+                // Update last login (with error handling)
+                try {
+                    $updateStmt = $this->db->prepare("UPDATE users SET last_login = ? WHERE id = ?");
+                    $updateStmt->execute([date('Y-m-d H:i:s'), $user['id']]);
+                } catch (Exception $e) {
+                    // Log error but don't fail login if last_login update fails
+                    error_log("[Auth] Warning: Could not update last_login: " . $e->getMessage());
+                }
                 
                 // Set session variables
                 $_SESSION['user_id'] = $user['id'];
                 $_SESSION['username'] = $user['username'];
+                $_SESSION['role_id'] = $user['role_id'];
                 $_SESSION['role_name'] = $user['role_name'];
                 $_SESSION['logged_in'] = true;
                 
@@ -62,12 +68,18 @@ class Auth {
                     
                     // Update to hashed password
                     $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-                    $updateStmt = $this->db->prepare("UPDATE users SET password = ?, last_login = ? WHERE id = ?");
-                    $updateStmt->execute([$hashedPassword, date('Y-m-d H:i:s'), $user['id']]);
+                    try {
+                        $updateStmt = $this->db->prepare("UPDATE users SET password = ?, last_login = ? WHERE id = ?");
+                        $updateStmt->execute([$hashedPassword, date('Y-m-d H:i:s'), $user['id']]);
+                    } catch (Exception $e) {
+                        // Log error but don't fail login
+                        error_log("[Auth] Warning: Could not update password/last_login: " . $e->getMessage());
+                    }
                     
                     // Set session variables
                     $_SESSION['user_id'] = $user['id'];
                     $_SESSION['username'] = $user['username'];
+                    $_SESSION['role_id'] = $user['role_id'];
                     $_SESSION['role_name'] = $user['role_name'];
                     $_SESSION['logged_in'] = true;
                     
@@ -120,12 +132,50 @@ class Auth {
         }
         
         // Admin has all permissions
-        if ($_SESSION['role_name'] === 'admin') {
+        if ($this->isAdmin()) {
             return true;
         }
         
-        // Add more granular permission checks as needed
-        return false;
+        // Check specific permission
+        $role = $this->getUserRole();
+        if (!$role) {
+            return false;
+        }
+        
+        $permissions = json_decode($role['permissions'], true);
+        return isset($permissions[$permission]) && $permissions[$permission] === true;
+    }
+    
+    /**
+     * Check if user is admin
+     */
+    public function isAdmin() {
+        if (!$this->isLoggedIn()) {
+            return false;
+        }
+        
+        $roleId = $_SESSION['role_id'] ?? 0;
+        $roleName = $_SESSION['role_name'] ?? '';
+        
+        return ($roleId == 1 || strtolower($roleName) === 'admin');
+    }
+    
+    /**
+     * Get user role details
+     */
+    public function getUserRole() {
+        if (!$this->isLoggedIn()) {
+            return null;
+        }
+        
+        $userId = $_SESSION['user_id'];
+        $stmt = $this->db->prepare("
+            SELECT r.* FROM roles r
+            INNER JOIN users u ON u.role_id = r.id
+            WHERE u.id = ?
+        ");
+        $stmt->execute([$userId]);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
     }
     
     /**
@@ -139,7 +189,8 @@ class Auth {
         return [
             'id' => $_SESSION['user_id'],
             'username' => $_SESSION['username'],
-            'role_name' => $_SESSION['role_name']
+            'role_id' => $_SESSION['role_id'] ?? null,
+            'role_name' => $_SESSION['role_name'] ?? null
         ];
     }
 }
