@@ -1,73 +1,75 @@
 <?php
-if (!isset($pageTitle)) {
-    $pageTitle = APP_NAME;
+// Session and Auth should be initialized by the calling page before including this header
+// This ensures proper control over timing and avoids conflicts
+if (!isset($auth) || !isset($currentUser)) {
+    // Fallback if not initialized by parent page
+    if (session_status() === PHP_SESSION_NONE) {
+        session_start();
+    }
+    require_once __DIR__ . '/../includes/auth.php';
+    if (!isset($auth)) {
+        $auth = new Auth();
+    }
+    $currentUser = $auth->getCurrentUser();
 }
-$currentUser = isset($auth) ? $auth->getCurrentUser() : null;
+
+// Default display values
+$displayUsername = htmlspecialchars($currentUser['username'] ?? 'User');
+$displayRole = htmlspecialchars($currentUser['role_name'] ?? 'User');
 ?>
 <!DOCTYPE html>
 <html lang="tr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?php echo htmlspecialchars($pageTitle); ?></title>
-    
-    <!-- Bootstrap 5 CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    
-    <!-- Bootstrap Icons -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
-    
-    <!-- SweetAlert2 -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.32/dist/sweetalert2.min.css">
-    
-    <!-- Custom CSS -->
+    <title><?php echo $pageTitle ?? 'MikroTik Panel'; ?> - HLM</title>
     <link rel="stylesheet" href="<?php echo BASE_URL; ?>/assets/css/style.css">
-    
-    <!-- Base URL for JavaScript -->
-    <script>
-        const BASE_URL = '<?php echo BASE_URL; ?>';
-    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-    <?php if ($currentUser): ?>
-    <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="<?php echo BASE_URL; ?>/pages/dashboard.php">
-                <i class="bi bi-router"></i> <?php echo APP_NAME; ?>
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
+    <!-- 🎉 v1.0.2 HEADER -->
+    <header class="main-header">
+        <div class="header-left">
+            <button class="sidebar-toggle" onclick="toggleSidebar()">
+                <i class="fas fa-bars"></i>
             </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav me-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="<?php echo BASE_URL; ?>/pages/dashboard.php">
-                            <i class="bi bi-speedometer2"></i> Dashboard
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="<?php echo BASE_URL; ?>/pages/update-manager.php">
-                            <i class="bi bi-cloud-download"></i> Update Manager
-                        </a>
-                    </li>
-                </ul>
-                <ul class="navbar-nav">
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown">
-                            <i class="bi bi-person-circle"></i> <?php echo htmlspecialchars($currentUser['username']); ?>
-                        </a>
-                        <ul class="dropdown-menu dropdown-menu-end">
-                            <li><span class="dropdown-item-text">Role: <?php echo htmlspecialchars($currentUser['role_name']); ?></span></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="<?php echo BASE_URL; ?>/logout.php"><i class="bi bi-box-arrow-right"></i> Logout</a></li>
-                        </ul>
-                    </li>
-                </ul>
+            <div class="logo">
+                <i class="fas fa-network-wired"></i>
+                <span>HLM Panel</span>
+                <span class="version-badge">v<?php echo APP_VERSION; ?></span>
             </div>
         </div>
-    </nav>
-    <?php endif; ?>
-    
-    <!-- Main Content -->
-    <main class="container-fluid mt-4">
+        
+        <div class="header-right">
+            <div class="user-menu">
+                <button class="user-button" onclick="toggleUserMenu()">
+                    <i class="fas fa-user-circle"></i>
+                    <span><?php echo $displayUsername; ?></span>
+                    <i class="fas fa-chevron-down"></i>
+                </button>
+                <div class="user-dropdown" id="userDropdown">
+                    <div class="user-info">
+                        <strong><?php echo $displayUsername; ?></strong>
+                        <small><?php echo $displayRole; ?></small>
+                    </div>
+                    <hr>
+                    <a href="<?php echo BASE_URL; ?>/pages/profile.php">
+                        <i class="fas fa-user"></i> Profil
+                    </a>
+                    <a href="<?php echo BASE_URL; ?>/pages/settings.php">
+                        <i class="fas fa-cog"></i> Ayarlar
+                    </a>
+                    <hr>
+                    <a href="<?php echo BASE_URL; ?>/logout.php" class="logout-link">
+                        <i class="fas fa-sign-out-alt"></i> Çıkış Yap
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="layout-container">
+        <?php include __DIR__ . '/sidebar.php'; ?>
+        
+        <main class="main-content">
+            <div class="content-wrapper">
