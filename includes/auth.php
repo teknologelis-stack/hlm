@@ -1,4 +1,8 @@
 <?php
+/**
+ * Authentication Class
+ */
+
 require_once __DIR__ . '/../config/database.php';
 require_once __DIR__ . '/../config/app.php';
 
@@ -6,105 +10,99 @@ class Auth {
     private $db;
     
     public function __construct() {
-        $this->db = Database::getInstance();
+        $this->db = Database::getInstance()->getConnection();
     }
     
-    public function login($username, $password, $remember = false) {
-        $user = $this->db->fetchOne(
-            "SELECT u.*, r.permissions FROM users u 
-             LEFT JOIN roles r ON u.role_id = r.id 
-             WHERE u.username = ? AND u.is_active = 1",
-            [$username]
-        );
-        
-        if (!$user) {
-            error_log("User not found: " . $username);
+    /**
+     * Login user
+     */
+    public function login($username, $password) {
+        try {
+            $stmt = $this->db->prepare("
+                SELECT u.*, r.name as role_name 
+                FROM users u 
+                JOIN roles r ON u.role_id = r.id 
+                WHERE u.username = ? AND u.is_active = 1
+            ");
+            $stmt->execute([$username]);
+            $user = $stmt->fetch();
+            
+            if ($user && password_verify($password, $user['password'])) {
+                // Update last login - Use PHP to generate timestamp for database compatibility
+                $updateStmt = $this->db->prepare("UPDATE users SET last_login = ? WHERE id = ?");
+                $updateStmt->execute([date('Y-m-d H:i:s'), $user['id']]);
+                
+                // Set session variables
+                $_SESSION['user_id'] = $user['id'];
+                $_SESSION['username'] = $user['username'];
+                $_SESSION['role_name'] = $user['role_name'];
+                $_SESSION['logged_in'] = true;
+                
+                return true;
+            }
+            
+            return false;
+        } catch (Exception $e) {
+            error_log("Login error: " . $e->getMessage());
             return false;
         }
-        
-        error_log("DB Password Hash: " . $user['password']);
-        error_log("Input Password: " . $password);
-        error_log("Verify Result: " . (password_verify($password, $user['password']) ? 'true' : 'false'));
-        
-        if (!password_verify($password, $user['password'])) {
-            return false;
-        }
-        
-        session_regenerate_id(true);
-        
-        $_SESSION['user_id'] = $user['id'];
-        $_SESSION['username'] = $user['username'];
-        $_SESSION['role_id'] = $user['role_id'];
-        $_SESSION['permissions'] = json_decode($user['permissions'], true);
-        $_SESSION['logged_in'] = true;
-        $_SESSION['last_activity'] = time();
-        
-        $this->db->update('users', 
-            ['last_login' => date('Y-m-d H:i:s')], 
-            'id = :id', 
-            ['id' => $user['id']]
-        );
-        
-        return true;
     }
     
+    /**
+     * Logout user
+     */
     public function logout() {
         session_unset();
         session_destroy();
-        return true;
+        session_start();
     }
     
+    /**
+     * Check if user is logged in
+     */
     public function isLoggedIn() {
-        if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
-            return false;
-        }
-        
-        if (isset($_SESSION['last_activity']) && (time() - $_SESSION['last_activity'] > SESSION_TIMEOUT)) {
-            $this->logout();
-            return false;
-        }
-        
-        $_SESSION['last_activity'] = time();
-        return true;
+        return isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true;
     }
     
+    /**
+     * Require authentication (redirect to login if not authenticated)
+     */
     public function requireLogin() {
         if (!$this->isLoggedIn()) {
-            redirect('index.php');
+            header('Location: ' . BASE_URL . '/index.php');
+            exit();
         }
     }
     
+    /**
+     * Check if user has specific permission
+     */
     public function hasPermission($permission) {
-        if (!isset($_SESSION['permissions'])) {
+        if (!$this->isLoggedIn()) {
             return false;
         }
         
-        $permissions = $_SESSION['permissions'];
-        return isset($permissions[$permission]) && $permissions[$permission] === true;
-    }
-    
-    public function requirePermission($permission) {
-        if (!$this->hasPermission($permission)) {
-            http_response_code(403);
-            die('Bu işlem için yetkiniz yok.');
+        // Admin has all permissions
+        if ($_SESSION['role_name'] === 'admin') {
+            return true;
         }
+        
+        // Add more granular permission checks as needed
+        return false;
     }
     
+    /**
+     * Get current user info
+     */
     public function getCurrentUser() {
         if (!$this->isLoggedIn()) {
             return null;
         }
         
-        return $this->db->fetchOne(
-            "SELECT u.*, r.name as role_name FROM users u 
-             LEFT JOIN roles r ON u.role_id = r.id 
-             WHERE u.id = ?",
-            [$_SESSION['user_id']]
-        );
-    }
-    
-    public function logActivity($userId, $action, $details = '', $deviceId = null) {
-        logActivity($userId, $action, $details, $deviceId);
+        return [
+            'id' => $_SESSION['user_id'],
+            'username' => $_SESSION['username'],
+            'role_name' => $_SESSION['role_name']
+        ];
     }
 }
-?>
