@@ -10,11 +10,18 @@ if (typeof BASE_URL === 'undefined') {
     console.error('BASE_URL should be defined in includes/header.php');
     
     // Fallback: window.location.origin kullan
-    const BASE_URL = window.location.origin;
+    var BASE_URL = window.location.origin;
     console.warn('Using fallback BASE_URL:', BASE_URL);
     
-    // Kullanıcıya uyarı
-    alert('Sistem yapılandırma hatası: BASE_URL tanımlı değil. Lütfen yönetici ile iletişime geçin.');
+    // Kullanıcıya uyarı (SweetAlert2 kullanarak)
+    if (typeof Swal !== 'undefined') {
+        Swal.fire({
+            title: 'Yapılandırma Hatası',
+            text: 'BASE_URL tanımlı değil. Sistem bazı özellikler düzgün çalışmayabilir.',
+            icon: 'warning',
+            confirmButtonText: 'Anladım'
+        });
+    }
 }
 
 // Global değişkenler

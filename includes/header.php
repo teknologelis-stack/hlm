@@ -15,7 +15,9 @@ $currentPage = basename($_SERVER['PHP_SELF'], '.php');
     <!-- BASE_URL'i JavaScript'e aktar - TÜM SCRIPTLERDEN ÖNCE -->
     <script>
         const BASE_URL = '<?php echo BASE_URL; ?>';
+        <?php if (DEBUG_MODE): ?>
         console.log('BASE_URL initialized:', BASE_URL);
+        <?php endif; ?>
     </script>
     
     <link rel="icon" type="image/x-icon" href="<?php echo BASE_URL; ?>/favicon.ico">
