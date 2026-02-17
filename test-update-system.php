@@ -110,14 +110,14 @@ echo "\n";
 echo "7. Checking database schema...\n";
 $db = Database::getInstance()->getConnection();
 try {
-    // Check system_updates table
-    $stmt = $db->query("PRAGMA table_info(system_updates)");
-    $columns = $stmt->fetchAll(PDO::FETCH_COLUMN, 1);
+    // Check system_updates table (MySQL compatible)
+    $stmt = $db->query("DESCRIBE system_updates");
+    $columns = $stmt->fetchAll(PDO::FETCH_COLUMN, 0);
     echo "   system_updates columns: " . implode(', ', $columns) . "\n";
     
-    // Check system_backups table
-    $stmt = $db->query("PRAGMA table_info(system_backups)");
-    $columns = $stmt->fetchAll(PDO::FETCH_COLUMN, 1);
+    // Check system_backups table (MySQL compatible)
+    $stmt = $db->query("DESCRIBE system_backups");
+    $columns = $stmt->fetchAll(PDO::FETCH_COLUMN, 0);
     echo "   system_backups columns: " . implode(', ', $columns) . "\n";
     echo "\n";
 } catch (Exception $e) {

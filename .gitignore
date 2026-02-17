@@ -23,7 +23,6 @@ config/database.php
 hlm_db.sqlite
 
 # Configuration
-config/database.php
 .env
 .env.local
 
