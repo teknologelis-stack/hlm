@@ -15,6 +15,7 @@
     --dark-bg: #1e293b;
     --light-bg: #f8fafc;
     --sidebar-width: 260px;
+    --sidebar-collapsed-width: 70px;
     --header-height: 60px;
 }
 
@@ -190,7 +191,7 @@ body {
 }
 
 .sidebar.collapsed {
-    width: 70px;
+    width: var(--sidebar-collapsed-width);
 }
 
 .sidebar.collapsed .nav-item span,
@@ -276,7 +277,7 @@ body {
 }
 
 .sidebar.collapsed + .main-content {
-    margin-left: 70px;
+    margin-left: var(--sidebar-collapsed-width);
 }
 
 .content-wrapper {

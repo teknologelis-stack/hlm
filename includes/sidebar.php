@@ -62,7 +62,7 @@
     <div class="sidebar-footer">
         <div class="version-info">
             <i class="fas fa-code-branch"></i>
-            <span>Versiyon 1.0.2</span>
+            <span>Versiyon <?php echo APP_VERSION; ?></span>
         </div>
     </div>
 </aside>

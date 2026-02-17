@@ -1,11 +1,21 @@
 <?php
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
+// Session and Auth should be initialized by the calling page before including this header
+// This ensures proper control over timing and avoids conflicts
+if (!isset($auth) || !isset($currentUser)) {
+    // Fallback if not initialized by parent page
+    if (session_status() === PHP_SESSION_NONE) {
+        session_start();
+    }
+    require_once __DIR__ . '/../includes/auth.php';
+    if (!isset($auth)) {
+        $auth = new Auth();
+    }
+    $currentUser = $auth->getCurrentUser();
 }
 
-require_once __DIR__ . '/../includes/auth.php';
-$auth = new Auth();
-$currentUser = $auth->getCurrentUser();
+// Default display values
+$displayUsername = htmlspecialchars($currentUser['username'] ?? 'User');
+$displayRole = htmlspecialchars($currentUser['role_name'] ?? 'User');
 ?>
 <!DOCTYPE html>
 <html lang="tr">
@@ -26,7 +36,7 @@ $currentUser = $auth->getCurrentUser();
             <div class="logo">
                 <i class="fas fa-network-wired"></i>
                 <span>HLM Panel</span>
-                <span class="version-badge">v1.0.2</span>
+                <span class="version-badge">v<?php echo APP_VERSION; ?></span>
             </div>
         </div>
         
@@ -34,13 +44,13 @@ $currentUser = $auth->getCurrentUser();
             <div class="user-menu">
                 <button class="user-button" onclick="toggleUserMenu()">
                     <i class="fas fa-user-circle"></i>
-                    <span><?php echo htmlspecialchars($currentUser['username'] ?? 'User'); ?></span>
+                    <span><?php echo $displayUsername; ?></span>
                     <i class="fas fa-chevron-down"></i>
                 </button>
                 <div class="user-dropdown" id="userDropdown">
                     <div class="user-info">
-                        <strong><?php echo htmlspecialchars($currentUser['username'] ?? 'User'); ?></strong>
-                        <small><?php echo htmlspecialchars($currentUser['role_name'] ?? 'User'); ?></small>
+                        <strong><?php echo $displayUsername; ?></strong>
+                        <small><?php echo $displayRole; ?></small>
                     </div>
                     <hr>
                     <a href="<?php echo BASE_URL; ?>/pages/profile.php">

@@ -49,14 +49,14 @@ require_once __DIR__ . '/../includes/header.php';
     <i class="fas fa-check-circle" style="font-size: 24px;"></i>
     <div>
         <strong>Güncelleme Başarılı! 🎉</strong>
-        <p style="margin: 5px 0 0 0;">Sistem <strong>v1.0.2</strong> versiyonuna başarıyla güncellendi. Bu mesajı görüyorsanız, güncelleme sistemi mükemmel çalışıyor demektir!</p>
+        <p style="margin: 5px 0 0 0;">Sistem <strong>v<?php echo APP_VERSION; ?></strong> versiyonuna başarıyla güncellendi. Bu mesajı görüyorsanız, güncelleme sistemi mükemmel çalışıyor demektir!</p>
     </div>
 </div>
 
 <div class="alert alert-info">
     <i class="fas fa-info-circle" style="font-size: 24px;"></i>
     <div>
-        <strong>Yenilikler v1.0.2</strong>
+        <strong>Yenilikler v<?php echo APP_VERSION; ?></strong>
         <ul style="margin: 5px 0 0 20px;">
             <li>✅ Modern header eklendi</li>
             <li>✅ Navigasyon sidebar eklendi</li>
