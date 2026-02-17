@@ -9,14 +9,14 @@ class Database {
     
     // Database configuration
     private $host = 'localhost';
-    private $dbname = 'hlm_db';
+    private $dbname = 'mikrotik_panel';
     private $username = 'root';
     private $password = '';
     private $charset = 'utf8mb4';
     
     // Use SQLite for testing if MySQL is not available
     private $useSQLite = false;
-    private $sqlitePath = __DIR__ . '/../hlm_db.sqlite'; // Relative path
+    private $sqlitePath = __DIR__ . '/../mikrotik_panel.sqlite'; // Relative path
     
     private function __construct() {
         try {
