@@ -7,14 +7,11 @@
 define('APP_NAME', 'HLM - MikroTik Panel');
 define('APP_VERSION', '1.0.0');
 
-// Base URL - Auto-detect
+// Base URL - Auto-detect (always points to application root)
 $protocol = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https' : 'http';
 $host = $_SERVER['HTTP_HOST'] ?? 'localhost';
-$scriptName = $_SERVER['SCRIPT_NAME'] ?? '';
-$baseDir = dirname($scriptName);
-$baseDir = $baseDir === '/' ? '' : $baseDir;
 
-define('BASE_URL', $protocol . '://' . $host . $baseDir);
+define('BASE_URL', $protocol . '://' . $host);
 
 // Paths
 define('ROOT_PATH', dirname(__DIR__));

@@ -141,7 +141,7 @@ class UpdateManager {
             // Record update in database
             $stmt = $this->db->prepare("
                 INSERT INTO system_updates (version, description, applied_at, applied_by, status)
-                VALUES (?, ?, NOW(), ?, 'applied')
+                VALUES (?, ?, datetime('now'), ?, 'applied')
             ");
             $stmt->execute([
                 $version,

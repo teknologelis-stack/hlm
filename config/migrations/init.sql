@@ -68,10 +68,10 @@ INSERT INTO roles (name, description) VALUES
 ON DUPLICATE KEY UPDATE description=VALUES(description);
 
 -- Insert default admin user (password: admin)
--- Password hash for 'admin' using PASSWORD_DEFAULT
+-- Note: The password hash below is for 'admin'. In production, change this immediately!
 INSERT INTO users (username, password, email, role_id) VALUES 
 ('admin', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'admin@hlm.local', 1)
-ON DUPLICATE KEY UPDATE password=VALUES(password);
+ON DUPLICATE KEY UPDATE email=VALUES(email);
 
 -- Insert default settings
 INSERT INTO settings (setting_key, setting_value, description) VALUES 
