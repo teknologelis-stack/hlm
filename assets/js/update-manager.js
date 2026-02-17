@@ -3,6 +3,7 @@
  */
 
 let availableUpdate = null;
+let progressInterval = null;
 
 /**
  * Check for available updates
@@ -30,15 +31,15 @@ function checkForUpdates() {
                 // Update last checked time
                 document.getElementById('lastChecked').textContent = new Date().toLocaleString();
                 
-                if (updateData.updates_available && updateData.updates.length > 0) {
+                if (updateData.available) {
                     // Store the update info
-                    availableUpdate = updateData.updates[0];
+                    availableUpdate = updateData;
                     
                     // Show update available message
                     let changesHtml = '';
-                    if (availableUpdate.changes && availableUpdate.changes.length > 0) {
+                    if (updateData.changelog && updateData.changelog.length > 0) {
                         changesHtml = '<ul class="mb-0">';
-                        availableUpdate.changes.forEach(change => {
+                        updateData.changelog.forEach(change => {
                             changesHtml += `<li>${change}</li>`;
                         });
                         changesHtml += '</ul>';
@@ -49,11 +50,9 @@ function checkForUpdates() {
                             <h5 class="alert-heading">
                                 <i class="bi bi-exclamation-triangle"></i> Update Available!
                             </h5>
-                            <p><strong>Version ${availableUpdate.version}</strong> is now available!</p>
-                            <p><small class="text-muted">Released: ${availableUpdate.released_at}</small></p>
-                            <hr>
-                            <p class="mb-2"><strong>Changes:</strong></p>
-                            ${changesHtml}
+                            <p><strong>Version ${updateData.latest}</strong> is now available!</p>
+                            <p><small class="text-muted">Released: ${new Date(updateData.release_date).toLocaleDateString()}</small></p>
+                            ${changesHtml ? '<hr><p class="mb-2"><strong>Changes:</strong></p>' + changesHtml : ''}
                         </div>
                     `;
                     
@@ -64,7 +63,7 @@ function checkForUpdates() {
                     resultDiv.innerHTML = `
                         <div class="alert alert-success">
                             <i class="bi bi-check-circle"></i> 
-                            Your system is up to date! (Version ${updateData.current_version})
+                            Your system is up to date! (Version ${updateData.current})
                         </div>
                     `;
                     
@@ -160,7 +159,7 @@ function createBackup() {
 }
 
 /**
- * Apply update
+ * Apply update with progress tracking
  */
 function applyUpdate() {
     if (!availableUpdate) {
@@ -171,11 +170,11 @@ function applyUpdate() {
     Swal.fire({
         title: 'Apply Update',
         html: `
-            <p>You are about to update the system to version <strong>${availableUpdate.version}</strong></p>
+            <p>You are about to update the system to version <strong>${availableUpdate.version || availableUpdate.latest}</strong></p>
             <p class="text-warning"><i class="bi bi-exclamation-triangle"></i> This will:</p>
             <ul class="text-start">
                 <li>Create a pre-update backup</li>
-                <li>Apply system updates</li>
+                <li>Download and apply system updates</li>
                 <li>May require a page refresh</li>
             </ul>
             <p class="text-danger"><strong>Continue?</strong></p>
@@ -188,37 +187,48 @@ function applyUpdate() {
         cancelButtonColor: '#6c757d',
     }).then((result) => {
         if (result.isConfirmed) {
-            // Show loading
+            // Show progress dialog
             Swal.fire({
-                title: 'Applying Update...',
+                title: 'Güncelleniyor...',
                 html: `
-                    <p>Please wait while we update your system</p>
-                    <p class="text-muted"><small>This may take a few moments...</small></p>
+                    <div class="progress mb-3" style="height: 25px;">
+                        <div id="progressBar" class="progress-bar progress-bar-striped progress-bar-animated" 
+                             role="progressbar" style="width: 0%">0%</div>
+                    </div>
+                    <p id="progressMessage" class="text-muted">Başlıyor...</p>
                 `,
                 allowOutsideClick: false,
                 allowEscapeKey: false,
+                showConfirmButton: false,
                 didOpen: () => {
-                    Swal.showLoading();
+                    startProgressTracking();
                 }
             });
             
+            // Start update
+            const version = availableUpdate.version || availableUpdate.latest;
             fetch(BASE_URL + '/api/system-update-apply.php', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    version: availableUpdate.version
+                    version: version
                 })
             })
             .then(response => response.json())
             .then(data => {
+                // Stop progress tracking
+                if (progressInterval) {
+                    clearInterval(progressInterval);
+                }
+                
                 if (data.success) {
                     Swal.fire({
-                        title: 'Success!',
+                        title: 'Başarılı!',
                         html: `
                             <p>${data.message || 'Update applied successfully'}</p>
-                            <p class="text-success">System updated to version ${data.data.new_version}</p>
+                            <p class="text-success">System updated to version ${data.data.version}</p>
                         `,
                         icon: 'success',
                         confirmButtonColor: '#198754'
@@ -227,8 +237,108 @@ function applyUpdate() {
                     });
                 } else {
                     Swal.fire({
-                        title: 'Error!',
+                        title: 'Hata!',
                         text: data.error || 'Failed to apply update',
+                        icon: 'error',
+                        confirmButtonColor: '#dc3545'
+                    });
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                if (progressInterval) {
+                    clearInterval(progressInterval);
+                }
+                Swal.fire({
+                    title: 'Hata!',
+                    text: 'Network error occurred',
+                    icon: 'error',
+                    confirmButtonColor: '#dc3545'
+                });
+            });
+        }
+    });
+}
+
+/**
+ * Start progress tracking
+ */
+function startProgressTracking() {
+    progressInterval = setInterval(() => {
+        fetch(BASE_URL + '/api/system-update-progress.php')
+            .then(r => r.json())
+            .then(data => {
+                const progressBar = document.getElementById('progressBar');
+                const progressMessage = document.getElementById('progressMessage');
+                
+                if (progressBar) {
+                    progressBar.style.width = data.progress + '%';
+                    progressBar.textContent = data.progress + '%';
+                }
+                
+                if (progressMessage) {
+                    progressMessage.textContent = data.message || 'İşleniyor...';
+                }
+                
+                // Stop tracking if done or error
+                if (data.status === 'done' || data.status === 'error') {
+                    clearInterval(progressInterval);
+                }
+            })
+            .catch(error => {
+                console.error('Progress tracking error:', error);
+            });
+    }, 1000);
+}
+
+/**
+ * Restore backup
+ */
+function restoreBackup(backupId) {
+    Swal.fire({
+        title: 'Restore Backup',
+        text: 'This will restore the system from this backup. All current data will be replaced. Continue?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Yes, restore',
+        cancelButtonText: 'Cancel',
+        confirmButtonColor: '#dc3545',
+    }).then((result) => {
+        if (result.isConfirmed) {
+            Swal.fire({
+                title: 'Restoring...',
+                text: 'Please wait while we restore your backup',
+                allowOutsideClick: false,
+                allowEscapeKey: false,
+                didOpen: () => {
+                    Swal.showLoading();
+                }
+            });
+            
+            fetch(BASE_URL + '/api/system-backup-restore.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    backup_id: backupId
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    Swal.fire({
+                        title: 'Success!',
+                        text: data.message || 'Backup restored successfully',
+                        icon: 'success',
+                        confirmButtonColor: '#198754'
+                    }).then(() => {
+                        location.reload();
+                    });
+                } else {
+                    Swal.fire({
+                        title: 'Error!',
+                        text: data.error || 'Failed to restore backup',
                         icon: 'error',
                         confirmButtonColor: '#dc3545'
                     });

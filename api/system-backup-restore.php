@@ -1,6 +1,6 @@
 <?php
 /**
- * API: Check for System Updates
+ * API: Restore System Backup
  */
 
 // Disable error display for clean JSON output
@@ -21,27 +21,44 @@ if (!$auth->isLoggedIn()) {
     exit();
 }
 
+// Check if user has admin role
+$currentUser = $auth->getCurrentUser();
+if ($currentUser['role_name'] !== 'admin') {
+    http_response_code(403);
+    echo json_encode(['success' => false, 'error' => 'Insufficient permissions']);
+    exit();
+}
+
+// Get JSON input
+$input = json_decode(file_get_contents('php://input'), true);
+
+if (!isset($input['backup_id']) || empty($input['backup_id'])) {
+    http_response_code(400);
+    echo json_encode(['success' => false, 'error' => 'Backup ID is required']);
+    exit();
+}
+
 try {
     $updateManager = new UpdateManager();
-    $result = $updateManager->checkForUpdates();
+    $result = $updateManager->restoreBackup($input['backup_id'], $currentUser['id']);
     
     if ($result['success']) {
         echo json_encode([
             'success' => true,
-            'data' => $result
+            'message' => $result['message']
         ]);
     } else {
         http_response_code(500);
         echo json_encode([
             'success' => false,
-            'error' => $result['message']
+            'error' => $result['error']
         ]);
     }
 } catch (Exception $e) {
-    error_log("[API:update-check] Error: " . $e->getMessage());
+    error_log("[API:backup-restore] Error: " . $e->getMessage());
     http_response_code(500);
     echo json_encode([
         'success' => false,
-        'error' => 'Failed to check for updates'
+        'error' => 'Failed to restore backup'
     ]);
 }
