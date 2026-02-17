@@ -132,45 +132,70 @@ class UpdateManager {
      * Apply update from GitHub
      */
     public function applyUpdate($version, $userId) {
+        error_log("[UpdateManager] ========================================");
+        error_log("[UpdateManager] Starting update to version: {$version}");
+        error_log("[UpdateManager] User ID: {$userId}");
+        error_log("[UpdateManager] ========================================");
+        
         try {
             // Start transaction
+            error_log("[UpdateManager] STEP 1: Starting database transaction");
             $this->db->beginTransaction();
             
             // 1. Create pre-update backup
+            error_log("[UpdateManager] STEP 2: Creating pre-update backup");
             $backup = $this->createBackup($userId, 'pre-update');
             if (!$backup['success']) {
+                error_log("[UpdateManager] ERROR: Backup failed - {$backup['error']}");
                 throw new Exception('Yedekleme başarısız: ' . $backup['error']);
             }
+            error_log("[UpdateManager] SUCCESS: Backup created with ID: {$backup['backup_id']}");
             
             // 2. Get release information from GitHub
+            error_log("[UpdateManager] STEP 3: Fetching release information from GitHub");
             $release = $this->github->getReleaseByTag($version);
             if (!$release) {
+                error_log("[UpdateManager] ERROR: Failed to get release info from GitHub");
                 throw new Exception('GitHub release bilgisi alınamadı');
             }
+            error_log("[UpdateManager] SUCCESS: Release info retrieved - URL: {$release['zipball_url']}");
             
             // 3. Download ZIP file
+            error_log("[UpdateManager] STEP 4: Downloading release ZIP file");
             $tempDir = TEMP_PATH . '/';
             $zipPath = $tempDir . "update-{$version}.zip";
+            error_log("[UpdateManager] Download path: {$zipPath}");
             
             $downloaded = $this->github->downloadRelease($release['zipball_url'], $zipPath);
             if (!$downloaded) {
+                error_log("[UpdateManager] ERROR: Download failed");
                 throw new Exception('Güncelleme dosyası indirilemedi');
             }
+            error_log("[UpdateManager] SUCCESS: ZIP file downloaded, size: " . filesize($zipPath) . " bytes");
             
             // 4. Extract ZIP
+            error_log("[UpdateManager] STEP 5: Extracting ZIP file");
             $extractPath = $tempDir . "update-{$version}/";
             $this->extractZip($zipPath, $extractPath);
+            error_log("[UpdateManager] SUCCESS: ZIP extracted to: {$extractPath}");
             
             // 5. Apply files safely
+            error_log("[UpdateManager] STEP 6: Applying files to application");
             $this->applyFiles($extractPath);
+            error_log("[UpdateManager] SUCCESS: Files applied");
             
             // 6. Run migrations if they exist
+            error_log("[UpdateManager] STEP 7: Running migrations");
             $this->runMigrations($extractPath);
+            error_log("[UpdateManager] SUCCESS: Migrations completed");
             
             // 7. Update version in database
+            error_log("[UpdateManager] STEP 8: Updating version in database");
             $this->updateVersion($version);
+            error_log("[UpdateManager] SUCCESS: Version updated to: {$version}");
             
             // 8. Record update in database
+            error_log("[UpdateManager] STEP 9: Recording update in database");
             $stmt = $this->db->prepare("
                 INSERT INTO system_updates (version, changelog, download_url, backup_id, applied_at, applied_by, status)
                 VALUES (?, ?, ?, ?, ?, ?, 'applied')
@@ -183,11 +208,21 @@ class UpdateManager {
                 date('Y-m-d H:i:s'),
                 $userId
             ]);
+            error_log("[UpdateManager] SUCCESS: Update recorded in database");
             
             // 9. Cleanup temp files
+            error_log("[UpdateManager] STEP 10: Cleaning up temporary files");
             $this->cleanupTempFiles($zipPath, $extractPath);
+            error_log("[UpdateManager] SUCCESS: Cleanup completed");
             
+            // Commit transaction
+            error_log("[UpdateManager] STEP 11: Committing database transaction");
             $this->db->commit();
+            error_log("[UpdateManager] SUCCESS: Transaction committed");
+            
+            error_log("[UpdateManager] ========================================");
+            error_log("[UpdateManager] Update completed successfully!");
+            error_log("[UpdateManager] ========================================");
             
             return [
                 'success' => true,
@@ -196,13 +231,26 @@ class UpdateManager {
                 'backup_id' => $backup['backup_id']
             ];
         } catch (Exception $e) {
-            $this->db->rollBack();
-            error_log("[UpdateManager] Update error: " . $e->getMessage());
+            error_log("[UpdateManager] ========================================");
+            error_log("[UpdateManager] UPDATE FAILED!");
+            error_log("[UpdateManager] Error: " . $e->getMessage());
+            error_log("[UpdateManager] File: " . $e->getFile() . " Line: " . $e->getLine());
             error_log("[UpdateManager] Trace: " . $e->getTraceAsString());
+            error_log("[UpdateManager] ========================================");
+            
+            // Rollback transaction
+            error_log("[UpdateManager] Rolling back database transaction");
+            $this->db->rollBack();
             
             // Rollback to backup if it was created
             if (isset($backup) && $backup['success']) {
-                $this->restoreBackup($backup['backup_id'], $userId);
+                error_log("[UpdateManager] Attempting to restore from backup ID: {$backup['backup_id']}");
+                $restoreResult = $this->restoreBackup($backup['backup_id'], $userId);
+                if ($restoreResult['success']) {
+                    error_log("[UpdateManager] Backup restored successfully");
+                } else {
+                    error_log("[UpdateManager] Backup restore failed: {$restoreResult['error']}");
+                }
             }
             
             // Record failed update
@@ -212,8 +260,9 @@ class UpdateManager {
                     VALUES (?, ?, ?, 'failed')
                 ");
                 $stmt->execute([$version, $e->getMessage(), $userId]);
+                error_log("[UpdateManager] Failed update recorded in database");
             } catch (Exception $dbError) {
-                error_log("[UpdateManager] Failed to record error: " . $dbError->getMessage());
+                error_log("[UpdateManager] Failed to record error in database: " . $dbError->getMessage());
             }
             
             return [

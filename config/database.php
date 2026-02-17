@@ -8,26 +8,30 @@ class Database {
     private static $instance = null;
     private $connection;
     
-    // Database configuration
-    private $host = 'localhost';
-    private $dbname = 'mikrotik_panel';
-    private $username = 'root';
-    private $password = '';
-    private $charset = 'utf8mb4';
+    // Database configuration - Using SQLite
+    private $dbPath;
     
     private function __construct() {
         try {
-            $dsn = "mysql:host={$this->host};dbname={$this->dbname};charset={$this->charset}";
+            // Determine database path
+            $this->dbPath = dirname(__DIR__) . '/hlm_db.sqlite';
+            
+            // Create DSN for SQLite
+            $dsn = "sqlite:{$this->dbPath}";
             $options = [
                 PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
                 PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-                PDO::ATTR_EMULATE_PREPARES => false,
-                PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8mb4"
+                PDO::ATTR_EMULATE_PREPARES => false
             ];
             
-            $this->connection = new PDO($dsn, $this->username, $this->password, $options);
+            $this->connection = new PDO($dsn, null, null, $options);
+            
+            // Enable foreign keys for SQLite
+            $this->connection->exec('PRAGMA foreign_keys = ON;');
+            
+            error_log("[Database] Connected to SQLite database: {$this->dbPath}");
         } catch (PDOException $e) {
-            error_log("Database connection failed: " . $e->getMessage());
+            error_log("[Database] Connection failed: " . $e->getMessage());
             die("Database connection failed. Please check configuration.");
         }
     }
