@@ -222,7 +222,7 @@ require_once __DIR__ . '/../includes/header.php';
                                     </td>
                                     <td>
                                         <span class="badge bg-secondary">
-                                            <i class="fas fa-user"></i> <?php echo htmlspecialchars($update['username'] ?? 'admin'); ?>
+                                            <i class="fas fa-user"></i> <?php echo htmlspecialchars($update['username'] ?? 'System'); ?>
                                         </span>
                                     </td>
                                 </tr>
