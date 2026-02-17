@@ -77,9 +77,18 @@ function ensureDirectories() {
     
     foreach ($dirs as $dir) {
         if (!is_dir($dir)) {
-            mkdir($dir, 0755, true);
-            // .gitkeep oluştur
-            file_put_contents($dir . '/.gitkeep', '');
+            try {
+                if (!mkdir($dir, 0755, true)) {
+                    error_log("Failed to create directory: $dir");
+                    continue;
+                }
+                // .gitkeep oluştur
+                if (file_put_contents($dir . '/.gitkeep', '') === false) {
+                    error_log("Failed to create .gitkeep in: $dir");
+                }
+            } catch (Exception $e) {
+                error_log("Error creating directory $dir: " . $e->getMessage());
+            }
         }
     }
 }
@@ -102,7 +111,21 @@ function jsonResponse($data, $statusCode = 200) {
  */
 function logError($message, $context = []) {
     $timestamp = date('Y-m-d H:i:s');
-    $logMessage = "[$timestamp] $message";
+    $logMessage = "[$timestamp] ERROR: $message";
+    
+    if (!empty($context)) {
+        $logMessage .= ' | Context: ' . json_encode($context);
+    }
+    
+    error_log($logMessage . PHP_EOL, 3, LOGS_PATH . '/app.log');
+}
+
+/**
+ * Info Log Helper
+ */
+function logInfo($message, $context = []) {
+    $timestamp = date('Y-m-d H:i:s');
+    $logMessage = "[$timestamp] INFO: $message";
     
     if (!empty($context)) {
         $logMessage .= ' | Context: ' . json_encode($context);

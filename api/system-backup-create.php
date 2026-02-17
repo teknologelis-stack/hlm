@@ -30,15 +30,14 @@ try {
     $result = $updateManager->createBackup($userId, 'manual');
 
     if ($result['success']) {
-        echo json_encode([
+        jsonResponse([
             'success' => true,
             'backup_name' => $result['filename'],
             'backup_id' => $result['backup_id'],
             'size' => $result['size']
-        ], JSON_UNESCAPED_UNICODE);
+        ], 200);
     } else {
-        http_response_code(500);
-        echo json_encode($result, JSON_UNESCAPED_UNICODE);
+        jsonResponse($result, 500);
     }
 
 } catch (Exception $e) {

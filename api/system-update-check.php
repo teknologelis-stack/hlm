@@ -27,7 +27,7 @@ try {
     $updateManager = new UpdateManager();
     $result = $updateManager->checkForUpdates();
 
-    echo json_encode($result, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+    jsonResponse($result, $result['success'] ? 200 : 500);
 
 } catch (Exception $e) {
     logError('Update check error: ' . $e->getMessage(), [

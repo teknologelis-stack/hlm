@@ -44,7 +44,7 @@ try {
     $version = trim($input['version']);
     $userId = $_SESSION['user_id'];
     
-    logError("Update requested by user $userId to version $version");
+    logInfo("Update requested by user $userId to version $version");
 
     // Store progress in session
     $_SESSION['update_progress'] = [
@@ -71,8 +71,8 @@ try {
             'message' => 'Güncelleme tamamlandı!'
         ];
         
-        logError("Update successful: $version");
-        echo json_encode($result, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+        logInfo("Update successful: $version");
+        jsonResponse($result, 200);
     } else {
         $_SESSION['update_progress'] = [
             'status' => 'error',
@@ -85,8 +85,7 @@ try {
             'user_id' => $userId
         ]);
         
-        http_response_code(500);
-        echo json_encode($result, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+        jsonResponse($result, 500);
     }
 
 } catch (Exception $e) {
