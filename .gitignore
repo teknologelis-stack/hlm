@@ -4,6 +4,8 @@ composer.phar
 
 # Logs
 /logs/*.log
+/logs/*
+!/logs/.gitkeep
 *.log
 
 # Backups
@@ -18,6 +20,11 @@ composer.phar
 *.db
 *.sqlite
 
+# Configuration
+config/database.php
+.env
+.env.local
+
 # System files
 .DS_Store
 Thumbs.db
@@ -29,10 +36,6 @@ Thumbs.db
 .vscode/
 .idea/
 *.sublime-*
-
-# Environment
-.env
-.env.local
 
 # Uploads
 /uploads/*

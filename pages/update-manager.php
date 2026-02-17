@@ -3,19 +3,37 @@
  * Update Manager Page
  */
 
+// Error handling
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+ini_set('log_errors', 1);
+
 require_once __DIR__ . '/../config/app.php';
 require_once __DIR__ . '/../includes/auth.php';
 require_once __DIR__ . '/../includes/UpdateManager.php';
 
-$auth = new Auth();
-$auth->requireLogin();
-
-$updateManager = new UpdateManager();
-$currentUser = $auth->getCurrentUser();
-
-// Get update history
-$updateHistory = $updateManager->getUpdateHistory(10);
-$backupHistory = $updateManager->getBackupHistory(10);
+try {
+    $auth = new Auth();
+    $auth->requireLogin();
+    
+    $updateManager = new UpdateManager();
+    $currentUser = $auth->getCurrentUser();
+    
+    // Get update history
+    $updateHistory = $updateManager->getUpdateHistory(10);
+    $backupHistory = $updateManager->getBackupHistory(10);
+} catch (Exception $e) {
+    error_log("[update-manager.php] Error: " . $e->getMessage());
+    error_log("[update-manager.php] Trace: " . $e->getTraceAsString());
+    
+    // Show error page
+    echo "<!DOCTYPE html><html><head><title>Error</title></head><body>";
+    echo "<h1>Error Loading Update Manager</h1>";
+    echo "<p>An error occurred while loading this page. Please check the error logs.</p>";
+    echo "<p><a href='" . BASE_URL . "'>Return to Dashboard</a></p>";
+    echo "</body></html>";
+    exit;
+}
 
 $pageTitle = 'Update Manager - ' . APP_NAME;
 require_once __DIR__ . '/../includes/header.php';
@@ -73,6 +91,59 @@ require_once __DIR__ . '/../includes/header.php';
                 <button id="applyUpdateBtn" class="btn btn-warning ms-2" onclick="applyUpdate()" style="display: none;">
                     <i class="bi bi-download"></i> Apply Update
                 </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Update Settings -->
+<div class="row mb-4">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0"><i class="bi bi-gear"></i> Update Settings</h5>
+            </div>
+            <div class="card-body">
+                <div class="form-check mb-3">
+                    <input type="checkbox" class="form-check-input" id="autoBackup" checked>
+                    <label class="form-check-label" for="autoBackup">
+                        Automatically backup before updates
+                    </label>
+                </div>
+                <div class="mb-3">
+                    <label for="updateChannel" class="form-label">Update Channel</label>
+                    <select class="form-select" id="updateChannel">
+                        <option value="stable" selected>Stable (Recommended)</option>
+                        <option value="beta">Beta (Pre-release)</option>
+                    </select>
+                    <div class="form-text">Choose which releases to receive</div>
+                </div>
+                <button class="btn btn-primary" onclick="saveUpdateSettings()">
+                    <i class="bi bi-save"></i> Save Settings
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0"><i class="bi bi-upload"></i> Manual Update</h5>
+            </div>
+            <div class="card-body">
+                <p class="text-muted">Upload a release ZIP file manually if automatic updates are not available.</p>
+                <div class="mb-3">
+                    <input type="file" class="form-control" id="manualUpdateFile" accept=".zip">
+                    <div class="form-text">Select a ZIP file from GitHub releases</div>
+                </div>
+                <button class="btn btn-warning" onclick="uploadManualUpdate()">
+                    <i class="bi bi-upload"></i> Upload & Install
+                </button>
+                <div id="uploadProgress" class="mt-3" style="display: none;">
+                    <div class="progress">
+                        <div class="progress-bar" role="progressbar" style="width: 0%">0%</div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -141,6 +212,7 @@ require_once __DIR__ . '/../includes/header.php';
                                     <th>Type</th>
                                     <th>Size</th>
                                     <th>Date</th>
+                                    <th>Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -157,6 +229,13 @@ require_once __DIR__ . '/../includes/header.php';
                                         </td>
                                         <td><small><?php echo number_format($backup['size_bytes'] / 1024, 1); ?> KB</small></td>
                                         <td><small><?php echo date('Y-m-d H:i', strtotime($backup['created_at'])); ?></small></td>
+                                        <td>
+                                            <button class="btn btn-sm btn-outline-primary" 
+                                                    onclick="restoreBackup(<?php echo $backup['id']; ?>)"
+                                                    title="Restore this backup">
+                                                <i class="bi bi-arrow-counterclockwise"></i>
+                                            </button>
+                                        </td>
                                     </tr>
                                 <?php endforeach; ?>
                             </tbody>

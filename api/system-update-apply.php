@@ -3,6 +3,10 @@
  * API: Apply System Update
  */
 
+// Disable error display for clean JSON output
+error_reporting(0);
+ini_set('display_errors', 0);
+
 header('Content-Type: application/json');
 
 require_once __DIR__ . '/../config/app.php';
@@ -35,16 +39,43 @@ if (!isset($input['version']) || empty($input['version'])) {
 }
 
 try {
+    // Store progress in session
+    $_SESSION['update_progress'] = [
+        'status' => 'starting',
+        'progress' => 0,
+        'message' => 'Güncelleme başlatılıyor...'
+    ];
+    
     $updateManager = new UpdateManager();
+    
+    // Update progress
+    $_SESSION['update_progress'] = [
+        'status' => 'downloading',
+        'progress' => 20,
+        'message' => 'Güncelleme dosyaları indiriliyor...'
+    ];
+    
     $result = $updateManager->applyUpdate($input['version'], $currentUser['id']);
     
     if ($result['success']) {
+        $_SESSION['update_progress'] = [
+            'status' => 'done',
+            'progress' => 100,
+            'message' => 'Güncelleme tamamlandı!'
+        ];
+        
         echo json_encode([
             'success' => true,
             'message' => $result['message'],
             'data' => $result
         ]);
     } else {
+        $_SESSION['update_progress'] = [
+            'status' => 'error',
+            'progress' => 0,
+            'message' => $result['error']
+        ];
+        
         http_response_code(500);
         echo json_encode([
             'success' => false,
@@ -52,9 +83,18 @@ try {
         ]);
     }
 } catch (Exception $e) {
+    error_log("[API:update-apply] Error: " . $e->getMessage());
+    error_log("[API:update-apply] Trace: " . $e->getTraceAsString());
+    
+    $_SESSION['update_progress'] = [
+        'status' => 'error',
+        'progress' => 0,
+        'message' => 'Güncelleme hatası oluştu'
+    ];
+    
     http_response_code(500);
     echo json_encode([
         'success' => false,
-        'error' => 'Failed to apply update: ' . $e->getMessage()
+        'error' => 'Failed to apply update'
     ]);
 }
