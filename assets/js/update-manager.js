@@ -14,11 +14,11 @@ function checkForUpdates() {
     
     // Disable button and show loading
     btn.disabled = true;
-    btn.innerHTML = '<i class="bi bi-hourglass-split"></i> Checking...';
+    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Checking...';
     
     resultDiv.innerHTML = `
         <div class="alert alert-info">
-            <i class="bi bi-hourglass-split"></i> Checking for updates...
+            <i class="fas fa-spinner fa-spin"></i> Checking for updates...
         </div>
     `;
     
@@ -48,7 +48,7 @@ function checkForUpdates() {
                     resultDiv.innerHTML = `
                         <div class="alert alert-warning">
                             <h5 class="alert-heading">
-                                <i class="bi bi-exclamation-triangle"></i> Güncelleme Mevcut!
+                                <i class="fas fa-exclamation-triangle"></i> Güncelleme Mevcut!
                             </h5>
                             <p><strong>Versiyon ${updateData.latest}</strong> şimdi kullanılabilir!</p>
                             <p><small class="text-muted">Yayınlanma: ${new Date(updateData.release_date).toLocaleDateString()}</small></p>
@@ -62,7 +62,7 @@ function checkForUpdates() {
                 } else {
                     resultDiv.innerHTML = `
                         <div class="alert alert-success">
-                            <i class="bi bi-check-circle"></i> 
+                            <i class="fas fa-check-circle"></i> 
                             Sisteminiz güncel! (Versiyon ${updateData.current})
                         </div>
                     `;
@@ -74,7 +74,7 @@ function checkForUpdates() {
             } else {
                 resultDiv.innerHTML = `
                     <div class="alert alert-danger">
-                        <i class="bi bi-x-circle"></i> ${data.error || 'Güncellemeler kontrol edilemedi'}
+                        <i class="fas fa-times-circle"></i> ${data.error || 'Güncellemeler kontrol edilemedi'}
                     </div>
                 `;
             }
@@ -83,14 +83,14 @@ function checkForUpdates() {
             console.error('Error:', error);
             resultDiv.innerHTML = `
                 <div class="alert alert-danger">
-                    <i class="bi bi-x-circle"></i> Ağ hatası oluştu
+                    <i class="fas fa-times-circle"></i> Ağ hatası oluştu
                 </div>
             `;
         })
         .finally(() => {
             // Re-enable button
             btn.disabled = false;
-            btn.innerHTML = '<i class="bi bi-search"></i> Check for Updates';
+            btn.innerHTML = '<i class="fas fa-search"></i> Check for Updates';
         });
 }
 
@@ -171,7 +171,7 @@ function applyUpdate() {
         title: 'Güncelleme Uygula',
         html: `
             <p>Sistem <strong>${availableUpdate.version || availableUpdate.latest}</strong> versiyonuna güncellenecek</p>
-            <p class="text-warning"><i class="bi bi-exclamation-triangle"></i> Bu işlem:</p>
+            <p class="text-warning"><i class="fas fa-exclamation-triangle"></i> Bu işlem:</p>
             <ul class="text-start">
                 <li>Otomatik yedek oluşturacak</li>
                 <li>Sistem güncellemelerini indirecek ve uygulayacak</li>
@@ -410,7 +410,7 @@ function uploadManualUpdate() {
         title: 'Manuel Güncelleme Yükle',
         html: `
             <p><strong>${file.name}</strong> dosyasından güncelleme yüklenecek</p>
-            <p class="text-warning"><i class="bi bi-exclamation-triangle"></i> Bunun geçerli bir HLM sürümü olduğundan emin olun!</p>
+            <p class="text-warning"><i class="fas fa-exclamation-triangle"></i> Bunun geçerli bir HLM sürümü olduğundan emin olun!</p>
             <p>Devam edilsin mi?</p>
         `,
         icon: 'warning',
