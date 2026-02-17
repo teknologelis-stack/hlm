@@ -51,9 +51,9 @@ INSERT OR REPLACE INTO settings (setting_key, setting_value) VALUES
 ('auto_backup_before_update', 'true');
 
 -- FIX 4: Ensure admin user exists with correct password
--- Password: admin (bcrypt hash: $2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi)
+-- Password: admin (bcrypt hash generated for 'admin')
 UPDATE users SET 
-    password = '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi',
+    password = '$2y$10$vFfD6MUyrQUH3QgqH9XlDuzUUObfrFq3ch.3l9psojvR.9mQL96Q.',
     is_active = 1
 WHERE username = 'admin';
 
