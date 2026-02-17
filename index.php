@@ -20,14 +20,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = $_POST['username'] ?? '';
     $password = $_POST['password'] ?? '';
     
+    error_log("[index.php] Login form submitted for username: {$username}");
+    
     if (empty($username) || empty($password)) {
         $error = 'Please enter both username and password';
+        error_log("[index.php] Login failed: Empty username or password");
     } else {
+        error_log("[index.php] Attempting login for user: {$username}");
         if ($auth->login($username, $password)) {
+            error_log("[index.php] Login successful, redirecting to dashboard");
             header('Location: ' . BASE_URL . '/pages/dashboard.php');
             exit();
         } else {
             $error = 'Invalid username or password';
+            error_log("[index.php] Login failed: Invalid credentials");
         }
     }
 }
