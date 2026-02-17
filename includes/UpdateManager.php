@@ -361,16 +361,7 @@ class UpdateManager {
      * Check if file should be excluded from update
      */
     private function isFileExcluded($relativePath) {
-        $excludePatterns = [
-            'config/database.php',
-            '.git/',
-            '.gitignore',
-            'backups/',
-            'temp/',
-            'logs/',
-            '.env',
-            'uploads/'
-        ];
+        $excludePatterns = UPDATE_EXCLUDE_PATTERNS;
         
         foreach ($excludePatterns as $pattern) {
             // Check if the path starts with or contains the pattern
