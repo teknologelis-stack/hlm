@@ -4,8 +4,8 @@
  */
 
 // Disable error display for clean JSON output
-error_reporting(0);
 ini_set('display_errors', 0);
+error_reporting(E_ALL);
 
 header('Content-Type: application/json');
 
@@ -38,10 +38,11 @@ try {
         ]);
     }
 } catch (Exception $e) {
-    error_log("[API:update-check] Error: " . $e->getMessage());
+    error_log("[API:update-check] Exception: " . $e->getMessage());
+    error_log("[API:update-check] Trace: " . $e->getTraceAsString());
     http_response_code(500);
     echo json_encode([
         'success' => false,
-        'error' => 'Failed to check for updates'
+        'error' => 'Güncelleme kontrolü hatası: ' . $e->getMessage()
     ]);
 }

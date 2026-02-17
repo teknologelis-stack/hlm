@@ -3,6 +3,10 @@
  * API: Create System Backup
  */
 
+// Disable error display for clean JSON output
+ini_set('display_errors', 0);
+error_reporting(E_ALL);
+
 header('Content-Type: application/json');
 
 require_once __DIR__ . '/../config/app.php';
@@ -37,9 +41,11 @@ try {
         ]);
     }
 } catch (Exception $e) {
+    error_log("[API:backup-create] Exception: " . $e->getMessage());
+    error_log("[API:backup-create] Trace: " . $e->getTraceAsString());
     http_response_code(500);
     echo json_encode([
         'success' => false,
-        'error' => 'Failed to create backup: ' . $e->getMessage()
+        'error' => 'Yedekleme oluşturma hatası: ' . $e->getMessage()
     ]);
 }

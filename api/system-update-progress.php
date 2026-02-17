@@ -4,8 +4,8 @@
  */
 
 // Disable error display for clean JSON output
-error_reporting(0);
 ini_set('display_errors', 0);
+error_reporting(E_ALL);
 
 header('Content-Type: application/json');
 
@@ -30,7 +30,8 @@ try {
     
     echo json_encode($progress);
 } catch (Exception $e) {
-    error_log("[API:update-progress] Error: " . $e->getMessage());
+    error_log("[API:update-progress] Exception: " . $e->getMessage());
+    error_log("[API:update-progress] Trace: " . $e->getTraceAsString());
     http_response_code(500);
     echo json_encode([
         'status' => 'error',
