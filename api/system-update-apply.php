@@ -4,8 +4,8 @@
  */
 
 // Disable error display for clean JSON output
-error_reporting(0);
 ini_set('display_errors', 0);
+error_reporting(E_ALL);
 
 header('Content-Type: application/json');
 
@@ -22,10 +22,10 @@ if (!$auth->isLoggedIn()) {
 }
 
 // Check if user has admin role
-$currentUser = $auth->getCurrentUser();
-if ($currentUser['role_name'] !== 'admin') {
+if (!$auth->isAdmin()) {
+    error_log("[API:update-apply] Access denied for user ID: " . ($_SESSION['user_id'] ?? 'N/A'));
     http_response_code(403);
-    echo json_encode(['success' => false, 'error' => 'Insufficient permissions']);
+    echo json_encode(['success' => false, 'error' => 'Bu işlem için yönetici yetkisi gereklidir']);
     exit();
 }
 
@@ -34,11 +34,12 @@ $input = json_decode(file_get_contents('php://input'), true);
 
 if (!isset($input['version']) || empty($input['version'])) {
     http_response_code(400);
-    echo json_encode(['success' => false, 'error' => 'Version is required']);
+    echo json_encode(['success' => false, 'error' => 'Versiyon parametresi eksik']);
     exit();
 }
 
 try {
+    $currentUser = $auth->getCurrentUser();
     // Store progress in session
     $_SESSION['update_progress'] = [
         'status' => 'starting',
@@ -83,7 +84,7 @@ try {
         ]);
     }
 } catch (Exception $e) {
-    error_log("[API:update-apply] Error: " . $e->getMessage());
+    error_log("[API:update-apply] Exception: " . $e->getMessage());
     error_log("[API:update-apply] Trace: " . $e->getTraceAsString());
     
     $_SESSION['update_progress'] = [
@@ -95,6 +96,6 @@ try {
     http_response_code(500);
     echo json_encode([
         'success' => false,
-        'error' => 'Failed to apply update'
+        'error' => 'Sistem hatası: ' . $e->getMessage()
     ]);
 }
