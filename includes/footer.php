@@ -1,18 +1,22 @@
-    </main>
-    
-    <!-- Footer -->
-    <footer class="bg-light text-center py-3 mt-5">
-        <div class="container">
-            <p class="mb-0 text-muted">
-                <?php echo APP_NAME; ?> v<?php echo APP_VERSION; ?> &copy; <?php echo date('Y'); ?>
-            </p>
-        </div>
-    </footer>
-    
-    <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    
-    <!-- SweetAlert2 -->
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.32/dist/sweetalert2.all.min.js"></script>
+            </div><!-- .content-wrapper -->
+        </main><!-- .main-content -->
+    </div><!-- .layout-container -->
+
+    <script>
+        function toggleSidebar() {
+            document.getElementById('sidebar').classList.toggle('collapsed');
+        }
+        
+        function toggleUserMenu() {
+            document.getElementById('userDropdown').classList.toggle('show');
+        }
+        
+        // Close user menu when clicking outside
+        document.addEventListener('click', function(event) {
+            if (!event.target.closest('.user-menu')) {
+                document.getElementById('userDropdown').classList.remove('show');
+            }
+        });
+    </script>
 </body>
 </html>
