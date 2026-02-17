@@ -1,47 +1,43 @@
 <?php
-/**
- * API: Check for System Updates
- */
-
-// Disable error display for clean JSON output
-error_reporting(0);
+// Hataları logla, ekrana gösterme (JSON bozulmasın)
+error_reporting(E_ALL);
 ini_set('display_errors', 0);
-
-header('Content-Type: application/json');
+ini_set('log_errors', 1);
 
 require_once __DIR__ . '/../config/app.php';
+require_once __DIR__ . '/../config/database.php';
+
+session_start();
+
 require_once __DIR__ . '/../includes/auth.php';
 require_once __DIR__ . '/../includes/UpdateManager.php';
 
-// Check authentication
-$auth = new Auth();
-if (!$auth->isLoggedIn()) {
-    http_response_code(401);
-    echo json_encode(['success' => false, 'error' => 'Unauthorized']);
-    exit();
-}
+header('Content-Type: application/json; charset=utf-8');
 
 try {
+    $auth = new Auth();
+    
+    if (!$auth->isLoggedIn()) {
+        jsonResponse([
+            'success' => false,
+            'message' => 'Oturum geçersiz'
+        ], 401);
+    }
+
     $updateManager = new UpdateManager();
     $result = $updateManager->checkForUpdates();
-    
-    if ($result['success']) {
-        echo json_encode([
-            'success' => true,
-            'data' => $result
-        ]);
-    } else {
-        http_response_code(500);
-        echo json_encode([
-            'success' => false,
-            'error' => $result['message']
-        ]);
-    }
+
+    echo json_encode($result, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+
 } catch (Exception $e) {
-    error_log("[API:update-check] Error: " . $e->getMessage());
-    http_response_code(500);
-    echo json_encode([
-        'success' => false,
-        'error' => 'Failed to check for updates'
+    logError('Update check error: ' . $e->getMessage(), [
+        'file' => __FILE__,
+        'trace' => $e->getTraceAsString()
     ]);
+    
+    jsonResponse([
+        'success' => false,
+        'message' => 'Güncelleme kontrolü başarısız',
+        'error' => $e->getMessage()
+    ], 500);
 }

@@ -26,6 +26,7 @@ $currentUser = isset($auth) ? $auth->getCurrentUser() : null;
     <!-- Base URL for JavaScript -->
     <script>
         const BASE_URL = '<?php echo BASE_URL; ?>';
+        console.log('BASE_URL loaded:', BASE_URL);
     </script>
 </head>
 <body>
