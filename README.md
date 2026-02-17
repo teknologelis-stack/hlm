@@ -247,32 +247,21 @@ session_start(): Ignoring session_start() because a session is already active
 
 ### Checking System Status
 
-Create a test file `test-system.php` in the root directory:
-```php
-<?php
-require_once 'config/database.php';
-require_once 'config/app.php';
+Run the included system test script to verify your installation:
 
-echo "ROOT_PATH: " . ROOT_PATH . "\n";
-echo "TEMP_PATH: " . TEMP_PATH . "\n";
-echo "BACKUPS_PATH: " . BACKUPS_PATH . "\n";
-echo "LOGS_PATH: " . LOGS_PATH . "\n";
-
-try {
-    $db = Database::getInstance()->getConnection();
-    echo "Database: Connected to " . $db->query("SELECT DATABASE()")->fetchColumn() . "\n";
-    
-    // Check tables
-    $tables = $db->query("SHOW TABLES")->fetchAll(PDO::FETCH_COLUMN);
-    echo "Tables: " . implode(", ", $tables) . "\n";
-    
-    // Check system_updates columns
-    $columns = $db->query("DESCRIBE system_updates")->fetchAll(PDO::FETCH_COLUMN);
-    echo "system_updates columns: " . implode(", ", $columns) . "\n";
-} catch (Exception $e) {
-    echo "Error: " . $e->getMessage() . "\n";
-}
+```bash
+php test-system.php
 ```
+
+This comprehensive test will check:
+- All required files and directories
+- Constants and configuration
+- Database connection and schema
+- Missing columns in tables
+- PHP extensions
+- Update system classes
+
+All checks should show ✅ after running the fix_update_tables.sql migration.
 
 ## License
 

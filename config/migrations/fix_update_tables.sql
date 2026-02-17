@@ -1,42 +1,45 @@
 -- FIX: Database Schema for Update System
--- This migration fixes any missing columns and ensures proper table structure
+-- This migration adds missing columns and ensures proper table structure
+-- Preserves existing data by using ALTER TABLE instead of DROP/CREATE
 
--- FIX: system_updates table
--- Drop and recreate to ensure all columns are present
-DROP TABLE IF EXISTS `system_updates`;
-CREATE TABLE `system_updates` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `version` varchar(20) NOT NULL,
-  `status` enum('pending','downloading','applying','applied','failed','rolled_back') DEFAULT 'pending',
-  `changelog` TEXT DEFAULT NULL,
-  `download_url` varchar(500) DEFAULT NULL,
-  `backup_id` int(11) DEFAULT NULL,
-  `error_message` TEXT DEFAULT NULL,
-  `applied_by` int(11) DEFAULT NULL,
-  `applied_at` datetime DEFAULT NULL,
-  `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`),
-  KEY `status` (`status`),
-  KEY `applied_by` (`applied_by`),
-  FOREIGN KEY (`applied_by`) REFERENCES `users`(`id`) ON DELETE SET NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+-- FIX: system_updates table - Add missing columns if they don't exist
+ALTER TABLE `system_updates` 
+  ADD COLUMN IF NOT EXISTS `changelog` TEXT DEFAULT NULL AFTER `status`,
+  ADD COLUMN IF NOT EXISTS `download_url` varchar(500) DEFAULT NULL AFTER `changelog`,
+  ADD COLUMN IF NOT EXISTS `backup_id` int(11) DEFAULT NULL AFTER `download_url`,
+  ADD COLUMN IF NOT EXISTS `error_message` TEXT DEFAULT NULL AFTER `backup_id`;
 
--- FIX: system_backups table
--- Drop and recreate to ensure all columns are present
-DROP TABLE IF EXISTS `system_backups`;
-CREATE TABLE `system_backups` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `filename` varchar(255) NOT NULL,
-  `filepath` varchar(500) DEFAULT NULL,
-  `backup_type` enum('manual','auto','pre-update') DEFAULT 'manual',
-  `size_bytes` bigint(20) DEFAULT 0,
-  `created_by` int(11) DEFAULT NULL,
-  `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`),
-  KEY `backup_type` (`backup_type`),
-  KEY `created_at` (`created_at`),
-  FOREIGN KEY (`created_by`) REFERENCES `users`(`id`) ON DELETE SET NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+-- Add foreign key if it doesn't exist (MySQL 5.7+ compatible)
+SET @fk_exists = (SELECT COUNT(*) FROM information_schema.TABLE_CONSTRAINTS 
+                  WHERE CONSTRAINT_SCHEMA = DATABASE() 
+                  AND TABLE_NAME = 'system_updates' 
+                  AND CONSTRAINT_NAME = 'system_updates_backup_fk');
+
+SET @sql = IF(@fk_exists = 0,
+    'ALTER TABLE `system_updates` ADD CONSTRAINT `system_updates_backup_fk` FOREIGN KEY (`backup_id`) REFERENCES `system_backups`(`id`) ON DELETE SET NULL',
+    'SELECT "Foreign key already exists" AS info');
+
+PREPARE stmt FROM @sql;
+EXECUTE stmt;
+DEALLOCATE PREPARE stmt;
+
+-- Ensure status enum has all required values
+ALTER TABLE `system_updates` 
+  MODIFY COLUMN `status` enum('pending','downloading','applying','applied','failed','rolled_back') DEFAULT 'pending';
+
+-- FIX: system_backups table - Add missing columns if they don't exist
+-- Note: filepath should be added but some old records might have it as NOT NULL
+ALTER TABLE `system_backups` 
+  ADD COLUMN IF NOT EXISTS `filepath` varchar(500) DEFAULT NULL AFTER `filename`;
+
+-- Update existing records to set filepath based on filename if NULL
+UPDATE `system_backups` 
+SET `filepath` = CONCAT('/home/runner/work/hlm/hlm/backups/', `filename`)
+WHERE `filepath` IS NULL AND `filename` IS NOT NULL;
+
+-- Ensure backup_type enum has all required values
+ALTER TABLE `system_backups` 
+  MODIFY COLUMN `backup_type` enum('manual','auto','pre-update') DEFAULT 'manual';
 
 -- FIX: settings - Add required update system settings
 INSERT INTO `settings` (`setting_key`, `setting_value`, `description`) VALUES
