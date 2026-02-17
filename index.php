@@ -1,108 +1,111 @@
 <?php
-// Load config BEFORE session_start to avoid ini_set warnings
+/**
+ * Login Page
+ */
+
 require_once __DIR__ . '/config/app.php';
-session_start();
-require_once __DIR__ . '/config/database.php';
 require_once __DIR__ . '/includes/auth.php';
 
 $auth = new Auth();
 
+// Redirect if already logged in
 if ($auth->isLoggedIn()) {
-    redirect('pages/dashboard.php');
+    header('Location: ' . BASE_URL . '/pages/dashboard.php');
+    exit();
 }
 
+// Handle login form submission
 $error = '';
-
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = $_POST['username'] ?? '';
     $password = $_POST['password'] ?? '';
-    $remember = isset($_POST['remember']);
     
     if (empty($username) || empty($password)) {
-        $error = 'Kullanıcı adı ve şifre gereklidir.';
+        $error = 'Please enter both username and password';
     } else {
-        if ($auth->login($username, $password, $remember)) {
-            redirect('pages/dashboard.php');
+        if ($auth->login($username, $password)) {
+            header('Location: ' . BASE_URL . '/pages/dashboard.php');
+            exit();
         } else {
-            $error = 'Kullanıcı adı veya şifre hatalı.';
+            $error = 'Invalid username or password';
         }
     }
 }
+
+$pageTitle = 'Login - ' . APP_NAME;
 ?>
 <!DOCTYPE html>
 <html lang="tr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Giriş - <?php echo APP_NAME; ?></title>
+    <title><?php echo htmlspecialchars($pageTitle); ?></title>
+    
+    <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Bootstrap Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
-    <link rel="stylesheet" href="assets/css/login.css">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="<?php echo BASE_URL; ?>/assets/css/style.css">
 </head>
-<body>
-    <div class="login-container">
-        <div class="login-box">
-            <div class="login-header">
-                <div class="logo-circle">
-                    <i class="bi bi-router"></i>
+<body class="bg-light">
+    <div class="container">
+        <div class="row justify-content-center align-items-center min-vh-100">
+            <div class="col-md-4">
+                <div class="card shadow">
+                    <div class="card-body p-5">
+                        <div class="text-center mb-4">
+                            <i class="bi bi-router text-primary" style="font-size: 3rem;"></i>
+                            <h3 class="mt-3"><?php echo APP_NAME; ?></h3>
+                            <p class="text-muted">v<?php echo APP_VERSION; ?></p>
+                        </div>
+                        
+                        <?php if ($error): ?>
+                            <div class="alert alert-danger" role="alert">
+                                <i class="bi bi-exclamation-triangle"></i> <?php echo htmlspecialchars($error); ?>
+                            </div>
+                        <?php endif; ?>
+                        
+                        <form method="POST" action="">
+                            <div class="mb-3">
+                                <label for="username" class="form-label">Username</label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="bi bi-person"></i></span>
+                                    <input type="text" class="form-control" id="username" name="username" 
+                                           value="<?php echo htmlspecialchars($_POST['username'] ?? ''); ?>" 
+                                           required autofocus>
+                                </div>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="password" class="form-label">Password</label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="bi bi-lock"></i></span>
+                                    <input type="password" class="form-control" id="password" name="password" required>
+                                </div>
+                            </div>
+                            
+                            <div class="d-grid">
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="bi bi-box-arrow-in-right"></i> Login
+                                </button>
+                            </div>
+                        </form>
+                        
+                        <div class="mt-4 text-center">
+                            <small class="text-muted">
+                                Default credentials:<br>
+                                <code>admin / admin</code>
+                            </small>
+                        </div>
+                    </div>
                 </div>
-                <h1>MikroTik Panel</h1>
-                <p>Cihaz Yönetim Sistemi</p>
             </div>
-            
-            <?php if ($error): ?>
-            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                <i class="bi bi-exclamation-triangle-fill me-2"></i>
-                <?php echo clean($error); ?>
-                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-            </div>
-            <?php endif; ?>
-            
-            <form method="POST" action="" id="loginForm">
-                <div class="form-floating mb-3">
-                    <input type="text" class="form-control" id="username" name="username" placeholder="Kullanıcı Adı" required autofocus>
-                    <label for="username"><i class="bi bi-person me-2"></i>Kullanıcı Adı</label>
-                </div>
-                
-                <div class="form-floating mb-3 position-relative">
-                    <input type="password" class="form-control" id="password" name="password" placeholder="Şifre" required>
-                    <label for="password"><i class="bi bi-lock me-2"></i>Şifre</label>
-                    <span class="password-toggle" onclick="togglePassword()">
-                        <i class="bi bi-eye" id="toggleIcon"></i>
-                    </span>
-                </div>
-                
-                <div class="form-check mb-4">
-                    <input class="form-check-input" type="checkbox" id="remember" name="remember">
-                    <label class="form-check-label" for="remember">
-                        Beni Hatırla
-                    </label>
-                </div>
-                
-                <button type="submit" class="btn btn-primary w-100 btn-login">
-                    <i class="bi bi-box-arrow-in-right me-2"></i>Giriş Yap
-                </button>
-            </form>
-            
-            <div class="login-footer">
-                <small class="text-muted">
-                    <i class="bi bi-shield-check me-1"></i>
-                    Güvenli Bağlantı
-                </small>
-                <small class="text-muted">v<?php echo APP_VERSION; ?></small>
-            </div>
-        </div>
-        
-        <div class="particles">
-            <div class="particle"></div>
-            <div class="particle"></div>
-            <div class="particle"></div>
-            <div class="particle"></div>
-            <div class="particle"></div>
         </div>
     </div>
     
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="assets/js/login.js"></script>
 </body>
 </html>

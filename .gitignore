@@ -1,0 +1,39 @@
+# Dependencies
+/vendor/
+composer.phar
+
+# Logs
+/logs/*.log
+*.log
+
+# Backups
+/backups/*
+!/backups/.gitkeep
+
+# Temp files
+/temp/*
+!/temp/.gitkeep
+
+# Database
+*.db
+*.sqlite
+
+# System files
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+
+# IDE
+.vscode/
+.idea/
+*.sublime-*
+
+# Environment
+.env
+.env.local
+
+# Uploads
+/uploads/*
+!/uploads/.gitkeep
