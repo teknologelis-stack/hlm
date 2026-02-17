@@ -1,7 +1,28 @@
 /**
  * Device Management JavaScript
  * Tüm buton, modal ve AJAX işlemleri
+ * BASE_URL: PHP'den aktarılmalı (header.php)
  */
+
+// BASE_URL kontrolü ve fallback
+if (typeof BASE_URL === 'undefined') {
+    console.error('CRITICAL: BASE_URL is not defined!');
+    console.error('BASE_URL should be defined in includes/header.php');
+    
+    // Fallback: window.location.origin kullan
+    var BASE_URL = window.location.origin;
+    console.warn('Using fallback BASE_URL:', BASE_URL);
+    
+    // Kullanıcıya uyarı (SweetAlert2 kullanarak)
+    if (typeof Swal !== 'undefined') {
+        Swal.fire({
+            title: 'Yapılandırma Hatası',
+            text: 'BASE_URL tanımlı değil. Sistem bazı özellikler düzgün çalışmayabilir.',
+            icon: 'warning',
+            confirmButtonText: 'Anladım'
+        });
+    }
+}
 
 // Global değişkenler
 let devicesDataTable = null;
