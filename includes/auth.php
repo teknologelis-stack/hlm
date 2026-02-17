@@ -55,23 +55,25 @@ class Auth {
                 return true;
             }
             
-            // Fallback: Check for plain text password (for debugging/migration)
-            if ($password === $user['password']) {
-                error_log("[Auth] Password matched as plain text - INSECURE! Please update hash.");
-                
-                // Update to hashed password
-                $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-                $updateStmt = $this->db->prepare("UPDATE users SET password = ?, last_login = ? WHERE id = ?");
-                $updateStmt->execute([$hashedPassword, date('Y-m-d H:i:s'), $user['id']]);
-                
-                // Set session variables
-                $_SESSION['user_id'] = $user['id'];
-                $_SESSION['username'] = $user['username'];
-                $_SESSION['role_name'] = $user['role_name'];
-                $_SESSION['logged_in'] = true;
-                
-                error_log("[Auth] Login successful (plain text converted to hash)");
-                return true;
+            // Fallback: Check for plain text password (ONLY if explicitly enabled for migration)
+            if (defined('ALLOW_PLAIN_TEXT_PASSWORD_MIGRATION') && ALLOW_PLAIN_TEXT_PASSWORD_MIGRATION === true) {
+                if ($password === $user['password']) {
+                    error_log("[Auth] WARNING: Password matched as plain text - INSECURE! Upgrading to hash.");
+                    
+                    // Update to hashed password
+                    $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+                    $updateStmt = $this->db->prepare("UPDATE users SET password = ?, last_login = ? WHERE id = ?");
+                    $updateStmt->execute([$hashedPassword, date('Y-m-d H:i:s'), $user['id']]);
+                    
+                    // Set session variables
+                    $_SESSION['user_id'] = $user['id'];
+                    $_SESSION['username'] = $user['username'];
+                    $_SESSION['role_name'] = $user['role_name'];
+                    $_SESSION['logged_in'] = true;
+                    
+                    error_log("[Auth] Login successful (plain text converted to hash)");
+                    return true;
+                }
             }
             
             error_log("[Auth] Password verification failed for user: {$username}");

@@ -37,6 +37,10 @@ define('BACKUPS_PATH', ROOT_PATH . '/backups');
 define('TEMP_PATH', ROOT_PATH . '/temp');
 define('LOGS_PATH', ROOT_PATH . '/logs');
 
+// Settings
+define('DEBUG_MODE', false); // Set to true only during development/migration
+define('ALLOW_PLAIN_TEXT_PASSWORD_MIGRATION', false); // Set to true only during password migration
+
 // Configure error logging
 ini_set('log_errors', 1);
 ini_set('error_log', LOGS_PATH . '/error.log');
