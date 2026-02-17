@@ -222,7 +222,7 @@ require_once __DIR__ . '/../includes/header.php';
                                     </td>
                                     <td>
                                         <span class="badge bg-secondary">
-                                            <i class="fas fa-user"></i> <?php echo htmlspecialchars($update['applied_by'] ?? 'admin'); ?>
+                                            <i class="fas fa-user"></i> <?php echo htmlspecialchars($update['username'] ?? 'admin'); ?>
                                         </span>
                                     </td>
                                 </tr>
@@ -281,7 +281,7 @@ require_once __DIR__ . '/../includes/header.php';
                                     <td>
                                         <small class="text-muted">
                                             <?php 
-                                            $sizeKB = round($backup['file_size'] / 1024, 2);
+                                            $sizeKB = round($backup['size_bytes'] / 1024, 2);
                                             echo $sizeKB . ' KB';
                                             ?>
                                         </small>
