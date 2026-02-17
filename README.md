@@ -27,18 +27,41 @@ cd hlm
 
 2. Create database and import schema:
 ```bash
-mysql -u root -p -e "CREATE DATABASE hlm_db CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;"
-mysql -u root -p hlm_db < config/migrations/init.sql
+mysql -u root -p -e "CREATE DATABASE mikrotik_panel CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;"
+mysql -u root -p mikrotik_panel < config/migrations/init.sql
 ```
 
-3. Configure database connection in `config/database.php`
+3. Configure database connection in `config/database.php`:
+```php
+private $host = 'localhost';
+private $dbname = 'mikrotik_panel';  // Must match the database you created
+private $username = 'root';
+private $password = '';  // Set your MySQL password here
+```
 
 4. Set appropriate permissions:
 ```bash
-chmod 755 backups temp
+chmod 755 backups temp logs
 ```
 
-5. Access the application in your browser
+5. Access the application in your browser:
+```
+http://localhost/hlm/
+```
+
+## Database Migration
+
+If you're upgrading from an older version or experiencing database schema issues, run the fix migration:
+
+```bash
+mysql -u root -p mikrotik_panel < config/migrations/fix_update_tables.sql
+```
+
+This migration will:
+- Add missing columns to `system_updates` table (changelog, error_message, download_url, backup_id)
+- Add missing columns to `system_backups` table (filepath)
+- Insert required settings for the update system
+- Fix table structure to match the expected schema
 
 ## Default Credentials
 
@@ -178,6 +201,78 @@ The following files/directories are never modified during updates:
 - Failed updates trigger automatic rollback
 - Update status is tracked in the database
 - Progress tracking available during updates
+
+## Troubleshooting
+
+### Database Connection Issues
+
+If you see errors like:
+```
+SQLSTATE[HY000]: General error: 1 table system_updates has no column named changelog
+```
+
+**Solution:**
+1. Make sure you're using MySQL (not SQLite)
+2. Run the fix migration:
+   ```bash
+   mysql -u root -p mikrotik_panel < config/migrations/fix_update_tables.sql
+   ```
+3. Verify database configuration in `config/database.php`
+
+### Session Errors
+
+If you see:
+```
+session_start(): Ignoring session_start() because a session is already active
+```
+
+**Solution:** This is handled automatically by `config/app.php`. Make sure all pages include `config/app.php` before any session operations.
+
+### Update System Issues
+
+**Problem:** "GitHub API connection failed"
+- Check your internet connection
+- Verify the GitHub repository exists: https://github.com/teknologelis-stack/hlm
+- Check if you're hitting GitHub API rate limits
+
+**Problem:** "Failed to download release"
+- Ensure `temp/` directory exists and is writable
+- Check PHP `allow_url_fopen` or cURL extension is enabled
+- Verify `TEMP_PATH` constant is defined in `config/app.php`
+
+**Problem:** "Backup creation failed"
+- Ensure `backups/` directory exists and is writable (chmod 755)
+- Check available disk space
+- Verify `BACKUPS_PATH` constant is defined
+
+### Checking System Status
+
+Create a test file `test-system.php` in the root directory:
+```php
+<?php
+require_once 'config/database.php';
+require_once 'config/app.php';
+
+echo "ROOT_PATH: " . ROOT_PATH . "\n";
+echo "TEMP_PATH: " . TEMP_PATH . "\n";
+echo "BACKUPS_PATH: " . BACKUPS_PATH . "\n";
+echo "LOGS_PATH: " . LOGS_PATH . "\n";
+
+try {
+    $db = Database::getInstance()->getConnection();
+    echo "Database: Connected to " . $db->query("SELECT DATABASE()")->fetchColumn() . "\n";
+    
+    // Check tables
+    $tables = $db->query("SHOW TABLES")->fetchAll(PDO::FETCH_COLUMN);
+    echo "Tables: " . implode(", ", $tables) . "\n";
+    
+    // Check system_updates columns
+    $columns = $db->query("DESCRIBE system_updates")->fetchAll(PDO::FETCH_COLUMN);
+    echo "system_updates columns: " . implode(", ", $columns) . "\n";
+} catch (Exception $e) {
+    echo "Error: " . $e->getMessage() . "\n";
+}
+```
 
 ## License
 
