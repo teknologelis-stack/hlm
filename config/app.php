@@ -51,9 +51,11 @@ define('AUTO_BACKUP_BEFORE_UPDATE', true);
 define('MAX_BACKUP_AGE_DAYS', 30);
 
 // Exclude Patterns (güncelleme sırasında dokunulmayacak)
+// Not: config/app.php güvenlik nedeniyle hariç tutulmuştur.
+// Bu dosyadaki önemli değişiklikler manuel olarak uygulanmalıdır.
 define('UPDATE_EXCLUDE_PATTERNS', [
     'config/database.php',
-    'config/app.php',  // Güvenlik için
+    'config/app.php',  // Güvenlik için - manuel güncelleme gerektirir
     '.git/',
     '.gitignore',
     'backups/',
@@ -75,10 +77,12 @@ function ensureDirectories() {
         UPLOADS_PATH
     ];
     
+    $failed = [];
     foreach ($dirs as $dir) {
         if (!is_dir($dir)) {
             try {
                 if (!mkdir($dir, 0755, true)) {
+                    $failed[] = $dir;
                     error_log("Failed to create directory: $dir");
                     continue;
                 }
@@ -87,10 +91,23 @@ function ensureDirectories() {
                     error_log("Failed to create .gitkeep in: $dir");
                 }
             } catch (Exception $e) {
+                $failed[] = $dir;
                 error_log("Error creating directory $dir: " . $e->getMessage());
             }
         }
     }
+    
+    // Kritik klasörler oluşturulamadıysa uyarı ver
+    if (!empty($failed)) {
+        $criticalDirs = [LOGS_PATH, TEMP_PATH];
+        foreach ($criticalDirs as $criticalDir) {
+            if (in_array($criticalDir, $failed)) {
+                trigger_error("Critical directory could not be created: $criticalDir", E_USER_WARNING);
+            }
+        }
+    }
+    
+    return empty($failed);
 }
 
 // Klasörleri otomatik oluştur
@@ -117,7 +134,17 @@ function logError($message, $context = []) {
         $logMessage .= ' | Context: ' . json_encode($context);
     }
     
-    error_log($logMessage . PHP_EOL, 3, LOGS_PATH . '/app.log');
+    // Ensure logs directory exists before writing
+    if (!is_dir(LOGS_PATH)) {
+        @mkdir(LOGS_PATH, 0755, true);
+    }
+    
+    if (is_writable(LOGS_PATH)) {
+        error_log($logMessage . PHP_EOL, 3, LOGS_PATH . '/app.log');
+    } else {
+        // Fallback to system error log if custom log path is not writable
+        error_log($logMessage);
+    }
 }
 
 /**
@@ -131,7 +158,17 @@ function logInfo($message, $context = []) {
         $logMessage .= ' | Context: ' . json_encode($context);
     }
     
-    error_log($logMessage . PHP_EOL, 3, LOGS_PATH . '/app.log');
+    // Ensure logs directory exists before writing
+    if (!is_dir(LOGS_PATH)) {
+        @mkdir(LOGS_PATH, 0755, true);
+    }
+    
+    if (is_writable(LOGS_PATH)) {
+        error_log($logMessage . PHP_EOL, 3, LOGS_PATH . '/app.log');
+    } else {
+        // Fallback to system error log if custom log path is not writable
+        error_log($logMessage);
+    }
 }
 
 /**
