@@ -37,6 +37,10 @@ define('BACKUPS_PATH', ROOT_PATH . '/backups');
 define('TEMP_PATH', ROOT_PATH . '/temp');
 define('LOGS_PATH', ROOT_PATH . '/logs');
 
+// Configure error logging
+ini_set('log_errors', 1);
+ini_set('error_log', LOGS_PATH . '/error.log');
+
 // Session settings
 ini_set('session.cookie_httponly', 1);
 ini_set('session.use_only_cookies', 1);
