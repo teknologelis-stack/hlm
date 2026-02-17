@@ -16,7 +16,7 @@ class Database {
     
     // Use SQLite for testing if MySQL is not available
     private $useSQLite = false;
-    private $sqlitePath = '/home/runner/work/hlm/hlm/hlm_db.sqlite';
+    private $sqlitePath = __DIR__ . '/../hlm_db.sqlite'; // Relative path
     
     private function __construct() {
         try {
@@ -139,6 +139,8 @@ class Database {
         $this->connection->exec("INSERT OR IGNORE INTO roles (id, name, description) VALUES (1, 'admin', 'System administrator with full access')");
         $this->connection->exec("INSERT OR IGNORE INTO roles (id, name, description) VALUES (2, 'user', 'Regular user with limited access')");
         // Use a verified password hash for 'admin' password
+        // SECURITY WARNING: Change this password immediately after first login!
+        // This is only for initial setup and testing purposes.
         $adminHash = password_hash('admin', PASSWORD_DEFAULT);
         $stmt = $this->connection->prepare("INSERT OR IGNORE INTO users (id, username, password, email, role_id) VALUES (1, 'admin', ?, 'admin@hlm.local', 1)");
         $stmt->execute([$adminHash]);

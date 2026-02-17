@@ -7,11 +7,27 @@
 define('APP_NAME', 'HLM - MikroTik Panel');
 define('APP_VERSION', '1.0.0');
 
-// Base URL - Auto-detect (always points to application root)
+// Base URL - Auto-detect
 $protocol = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https' : 'http';
 $host = $_SERVER['HTTP_HOST'] ?? 'localhost';
 
-define('BASE_URL', $protocol . '://' . $host);
+// Detect base directory from SCRIPT_NAME
+$scriptName = $_SERVER['SCRIPT_NAME'] ?? '/index.php';
+$baseDir = '';
+
+// If script is not in root, extract the directory
+if (strpos($scriptName, '/') !== false) {
+    $parts = explode('/', $scriptName);
+    array_pop($parts); // Remove script filename
+    
+    // Check if we're in a subdirectory (not root, pages, api, etc.)
+    $dir = implode('/', $parts);
+    if ($dir !== '' && !in_array(basename($dir), ['pages', 'api', 'includes'])) {
+        $baseDir = $dir;
+    }
+}
+
+define('BASE_URL', $protocol . '://' . $host . $baseDir);
 
 // Paths
 define('ROOT_PATH', dirname(__DIR__));

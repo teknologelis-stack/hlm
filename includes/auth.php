@@ -28,9 +28,9 @@ class Auth {
             $user = $stmt->fetch();
             
             if ($user && password_verify($password, $user['password'])) {
-                // Update last login - Use compatible SQL for both MySQL and SQLite
-                $updateStmt = $this->db->prepare("UPDATE users SET last_login = datetime('now') WHERE id = ?");
-                $updateStmt->execute([$user['id']]);
+                // Update last login - Use PHP to generate timestamp for database compatibility
+                $updateStmt = $this->db->prepare("UPDATE users SET last_login = ? WHERE id = ?");
+                $updateStmt->execute([date('Y-m-d H:i:s'), $user['id']]);
                 
                 // Set session variables
                 $_SESSION['user_id'] = $user['id'];
