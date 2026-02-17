@@ -35,6 +35,7 @@ define('INCLUDES_PATH', ROOT_PATH . '/includes');
 define('CONFIG_PATH', ROOT_PATH . '/config');
 define('BACKUPS_PATH', ROOT_PATH . '/backups');
 define('TEMP_PATH', ROOT_PATH . '/temp');
+define('LOGS_PATH', ROOT_PATH . '/logs');
 
 // Session settings
 ini_set('session.cookie_httponly', 1);
