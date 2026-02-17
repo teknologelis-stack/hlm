@@ -356,3 +356,129 @@ function restoreBackup(backupId) {
         }
     });
 }
+
+/**
+ * Save update settings
+ */
+function saveUpdateSettings() {
+    const autoBackup = document.getElementById('autoBackup').checked;
+    const updateChannel = document.getElementById('updateChannel').value;
+    
+    Swal.fire({
+        title: 'Saving...',
+        text: 'Updating settings',
+        allowOutsideClick: false,
+        didOpen: () => {
+            Swal.showLoading();
+        }
+    });
+    
+    // In a real implementation, this would save to the backend
+    // For now, we'll just store in localStorage
+    localStorage.setItem('autoBackup', autoBackup);
+    localStorage.setItem('updateChannel', updateChannel);
+    
+    setTimeout(() => {
+        Swal.fire({
+            title: 'Saved!',
+            text: 'Update settings have been saved',
+            icon: 'success',
+            timer: 2000,
+            showConfirmButton: false
+        });
+    }, 500);
+}
+
+/**
+ * Upload manual update
+ */
+function uploadManualUpdate() {
+    const fileInput = document.getElementById('manualUpdateFile');
+    const file = fileInput.files[0];
+    
+    if (!file) {
+        Swal.fire('Error', 'Please select a ZIP file to upload', 'error');
+        return;
+    }
+    
+    if (!file.name.endsWith('.zip')) {
+        Swal.fire('Error', 'Please select a valid ZIP file', 'error');
+        return;
+    }
+    
+    Swal.fire({
+        title: 'Upload Manual Update',
+        html: `
+            <p>You are about to install an update from <strong>${file.name}</strong></p>
+            <p class="text-warning"><i class="bi bi-exclamation-triangle"></i> Make sure this is a valid HLM release!</p>
+            <p>Continue?</p>
+        `,
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Yes, upload and install',
+        cancelButtonText: 'Cancel',
+        confirmButtonColor: '#ffc107',
+    }).then((result) => {
+        if (result.isConfirmed) {
+            const progressDiv = document.getElementById('uploadProgress');
+            progressDiv.style.display = 'block';
+            
+            // Create FormData
+            const formData = new FormData();
+            formData.append('update_file', file);
+            
+            // Show progress
+            Swal.fire({
+                title: 'Uploading...',
+                html: '<div class="progress"><div class="progress-bar progress-bar-striped progress-bar-animated" style="width: 100%"></div></div>',
+                allowOutsideClick: false,
+                showConfirmButton: false
+            });
+            
+            // Note: This would require a new API endpoint for manual uploads
+            // For now, show a placeholder message
+            setTimeout(() => {
+                Swal.fire({
+                    title: 'Not Implemented',
+                    text: 'Manual upload feature requires additional backend implementation',
+                    icon: 'info'
+                });
+                progressDiv.style.display = 'none';
+            }, 1500);
+            
+            /* Production implementation would be:
+            fetch(BASE_URL + '/api/system-update-upload.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                progressDiv.style.display = 'none';
+                if (data.success) {
+                    Swal.fire('Success!', data.message, 'success').then(() => location.reload());
+                } else {
+                    Swal.fire('Error!', data.error, 'error');
+                }
+            })
+            .catch(error => {
+                progressDiv.style.display = 'none';
+                Swal.fire('Error!', 'Upload failed', 'error');
+            });
+            */
+        }
+    });
+}
+
+// Load saved settings on page load
+document.addEventListener('DOMContentLoaded', function() {
+    const autoBackup = localStorage.getItem('autoBackup');
+    const updateChannel = localStorage.getItem('updateChannel');
+    
+    if (autoBackup !== null) {
+        document.getElementById('autoBackup').checked = autoBackup === 'true';
+    }
+    
+    if (updateChannel) {
+        document.getElementById('updateChannel').value = updateChannel;
+    }
+});
