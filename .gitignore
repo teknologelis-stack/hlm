@@ -17,8 +17,10 @@ composer.phar
 !/temp/.gitkeep
 
 # Database
-*.db
+config/database.php
 *.sqlite
+*.db
+hlm_db.sqlite
 
 # Configuration
 config/database.php
