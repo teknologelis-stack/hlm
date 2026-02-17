@@ -56,12 +56,6 @@ class UpdateManager {
             $filename = "backup_{$timestamp}.sql";
             $filepath = BACKUPS_PATH . '/' . $filename;
             
-            // Get database configuration
-            $stmt = $this->db->prepare("SELECT DATABASE() as dbname");
-            $stmt->execute();
-            $result = $stmt->fetch();
-            $dbname = $result['dbname'];
-            
             // Create SQL dump (simulated - in production use mysqldump)
             $tables = ['roles', 'users', 'settings', 'system_updates', 'system_backups'];
             $sqlDump = "-- HLM Backup - " . date('Y-m-d H:i:s') . "\n\n";
