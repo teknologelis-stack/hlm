@@ -252,7 +252,7 @@ class UpdateManager {
                 SELECT u.*, us.username 
                 FROM system_updates u
                 LEFT JOIN users us ON u.applied_by = us.id
-                ORDER BY u.created_at DESC
+                ORDER BY COALESCE(u.applied_at, u.created_at) DESC
                 LIMIT ?
             ");
             $stmt->execute([$limit]);
@@ -333,8 +333,11 @@ class UpdateManager {
             $sourcePath = $source . $file;
             $destPath = $destination . $file;
             
+            // Get relative path for exclusion checking
+            $relativePath = str_replace(ROOT_PATH . '/', '', $destPath);
+            
             // Check if file should be excluded
-            if ($this->isFileExcluded($file)) {
+            if ($this->isFileExcluded($relativePath)) {
                 continue;
             }
             
@@ -357,20 +360,21 @@ class UpdateManager {
     /**
      * Check if file should be excluded from update
      */
-    private function isFileExcluded($file) {
+    private function isFileExcluded($relativePath) {
         $excludePatterns = [
             'config/database.php',
-            '.git',
+            '.git/',
             '.gitignore',
-            'backups',
-            'temp',
-            'logs',
+            'backups/',
+            'temp/',
+            'logs/',
             '.env',
-            'uploads'
+            'uploads/'
         ];
         
         foreach ($excludePatterns as $pattern) {
-            if (strpos($file, $pattern) !== false) {
+            // Check if the path starts with or contains the pattern
+            if (strpos($relativePath, $pattern) === 0 || strpos($relativePath, $pattern) !== false) {
                 return true;
             }
         }

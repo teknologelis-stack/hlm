@@ -48,11 +48,11 @@ function checkForUpdates() {
                     resultDiv.innerHTML = `
                         <div class="alert alert-warning">
                             <h5 class="alert-heading">
-                                <i class="bi bi-exclamation-triangle"></i> Update Available!
+                                <i class="bi bi-exclamation-triangle"></i> Güncelleme Mevcut!
                             </h5>
-                            <p><strong>Version ${updateData.latest}</strong> is now available!</p>
-                            <p><small class="text-muted">Released: ${new Date(updateData.release_date).toLocaleDateString()}</small></p>
-                            ${changesHtml ? '<hr><p class="mb-2"><strong>Changes:</strong></p>' + changesHtml : ''}
+                            <p><strong>Versiyon ${updateData.latest}</strong> şimdi kullanılabilir!</p>
+                            <p><small class="text-muted">Yayınlanma: ${new Date(updateData.release_date).toLocaleDateString()}</small></p>
+                            ${changesHtml ? '<hr><p class="mb-2"><strong>Değişiklikler:</strong></p>' + changesHtml : ''}
                         </div>
                     `;
                     
@@ -63,7 +63,7 @@ function checkForUpdates() {
                     resultDiv.innerHTML = `
                         <div class="alert alert-success">
                             <i class="bi bi-check-circle"></i> 
-                            Your system is up to date! (Version ${updateData.current})
+                            Sisteminiz güncel! (Versiyon ${updateData.current})
                         </div>
                     `;
                     
@@ -74,7 +74,7 @@ function checkForUpdates() {
             } else {
                 resultDiv.innerHTML = `
                     <div class="alert alert-danger">
-                        <i class="bi bi-x-circle"></i> ${data.error || 'Failed to check for updates'}
+                        <i class="bi bi-x-circle"></i> ${data.error || 'Güncellemeler kontrol edilemedi'}
                     </div>
                 `;
             }
@@ -83,7 +83,7 @@ function checkForUpdates() {
             console.error('Error:', error);
             resultDiv.innerHTML = `
                 <div class="alert alert-danger">
-                    <i class="bi bi-x-circle"></i> Network error occurred
+                    <i class="bi bi-x-circle"></i> Ağ hatası oluştu
                 </div>
             `;
         })
@@ -99,19 +99,19 @@ function checkForUpdates() {
  */
 function createBackup() {
     Swal.fire({
-        title: 'Create Backup',
-        text: 'This will create a backup of your database. Continue?',
+        title: 'Yedek Oluştur',
+        text: 'Veritabanınızın yedeği oluşturulacak. Devam edilsin mi?',
         icon: 'question',
         showCancelButton: true,
-        confirmButtonText: 'Yes, create backup',
-        cancelButtonText: 'Cancel',
+        confirmButtonText: 'Evet, yedek oluştur',
+        cancelButtonText: 'İptal',
         confirmButtonColor: '#198754',
     }).then((result) => {
         if (result.isConfirmed) {
             // Show loading
             Swal.fire({
-                title: 'Creating Backup...',
-                text: 'Please wait while we backup your data',
+                title: 'Yedek Oluşturuluyor...',
+                text: 'Verileriniz yedekleniyor, lütfen bekleyin',
                 allowOutsideClick: false,
                 allowEscapeKey: false,
                 didOpen: () => {
@@ -129,8 +129,8 @@ function createBackup() {
             .then(data => {
                 if (data.success) {
                     Swal.fire({
-                        title: 'Success!',
-                        text: data.message || 'Backup created successfully',
+                        title: 'Başarılı!',
+                        text: data.message || 'Yedek başarıyla oluşturuldu',
                         icon: 'success',
                         confirmButtonColor: '#0d6efd'
                     }).then(() => {
@@ -138,8 +138,8 @@ function createBackup() {
                     });
                 } else {
                     Swal.fire({
-                        title: 'Error!',
-                        text: data.error || 'Failed to create backup',
+                        title: 'Hata!',
+                        text: data.error || 'Yedek oluşturulamadı',
                         icon: 'error',
                         confirmButtonColor: '#dc3545'
                     });
@@ -148,8 +148,8 @@ function createBackup() {
             .catch(error => {
                 console.error('Error:', error);
                 Swal.fire({
-                    title: 'Error!',
-                    text: 'Network error occurred',
+                    title: 'Hata!',
+                    text: 'Ağ hatası oluştu',
                     icon: 'error',
                     confirmButtonColor: '#dc3545'
                 });
@@ -163,26 +163,26 @@ function createBackup() {
  */
 function applyUpdate() {
     if (!availableUpdate) {
-        Swal.fire('Error', 'No update available', 'error');
+        Swal.fire('Hata', 'Güncelleme bulunamadı', 'error');
         return;
     }
     
     Swal.fire({
-        title: 'Apply Update',
+        title: 'Güncelleme Uygula',
         html: `
-            <p>You are about to update the system to version <strong>${availableUpdate.version || availableUpdate.latest}</strong></p>
-            <p class="text-warning"><i class="bi bi-exclamation-triangle"></i> This will:</p>
+            <p>Sistem <strong>${availableUpdate.version || availableUpdate.latest}</strong> versiyonuna güncellenecek</p>
+            <p class="text-warning"><i class="bi bi-exclamation-triangle"></i> Bu işlem:</p>
             <ul class="text-start">
-                <li>Create a pre-update backup</li>
-                <li>Download and apply system updates</li>
-                <li>May require a page refresh</li>
+                <li>Otomatik yedek oluşturacak</li>
+                <li>Sistem güncellemelerini indirecek ve uygulayacak</li>
+                <li>Sayfa yenilenmesi gerektirebilir</li>
             </ul>
-            <p class="text-danger"><strong>Continue?</strong></p>
+            <p class="text-danger"><strong>Devam edilsin mi?</strong></p>
         `,
         icon: 'warning',
         showCancelButton: true,
-        confirmButtonText: 'Yes, update now!',
-        cancelButtonText: 'Cancel',
+        confirmButtonText: 'Evet, şimdi güncelle!',
+        cancelButtonText: 'İptal',
         confirmButtonColor: '#ffc107',
         cancelButtonColor: '#6c757d',
     }).then((result) => {
@@ -227,8 +227,8 @@ function applyUpdate() {
                     Swal.fire({
                         title: 'Başarılı!',
                         html: `
-                            <p>${data.message || 'Update applied successfully'}</p>
-                            <p class="text-success">System updated to version ${data.data.version}</p>
+                            <p>${data.message || 'Güncelleme başarıyla uygulandı'}</p>
+                            <p class="text-success">Sistem ${data.data.version} versiyonuna güncellendi</p>
                         `,
                         icon: 'success',
                         confirmButtonColor: '#198754'
@@ -238,7 +238,7 @@ function applyUpdate() {
                 } else {
                     Swal.fire({
                         title: 'Hata!',
-                        text: data.error || 'Failed to apply update',
+                        text: data.error || 'Güncelleme uygulanamadı',
                         icon: 'error',
                         confirmButtonColor: '#dc3545'
                     });
@@ -251,7 +251,7 @@ function applyUpdate() {
                 }
                 Swal.fire({
                     title: 'Hata!',
-                    text: 'Network error occurred',
+                    text: 'Ağ hatası oluştu',
                     icon: 'error',
                     confirmButtonColor: '#dc3545'
                 });
@@ -296,18 +296,18 @@ function startProgressTracking() {
  */
 function restoreBackup(backupId) {
     Swal.fire({
-        title: 'Restore Backup',
-        text: 'This will restore the system from this backup. All current data will be replaced. Continue?',
+        title: 'Yedeği Geri Yükle',
+        text: 'Sistem bu yedekten geri yüklenecek. Mevcut tüm veriler değiştirilecek. Devam edilsin mi?',
         icon: 'warning',
         showCancelButton: true,
-        confirmButtonText: 'Yes, restore',
-        cancelButtonText: 'Cancel',
+        confirmButtonText: 'Evet, geri yükle',
+        cancelButtonText: 'İptal',
         confirmButtonColor: '#dc3545',
     }).then((result) => {
         if (result.isConfirmed) {
             Swal.fire({
-                title: 'Restoring...',
-                text: 'Please wait while we restore your backup',
+                title: 'Geri Yükleniyor...',
+                text: 'Yedeğiniz geri yükleniyor, lütfen bekleyin',
                 allowOutsideClick: false,
                 allowEscapeKey: false,
                 didOpen: () => {
@@ -328,8 +328,8 @@ function restoreBackup(backupId) {
             .then(data => {
                 if (data.success) {
                     Swal.fire({
-                        title: 'Success!',
-                        text: data.message || 'Backup restored successfully',
+                        title: 'Başarılı!',
+                        text: data.message || 'Yedek başarıyla geri yüklendi',
                         icon: 'success',
                         confirmButtonColor: '#198754'
                     }).then(() => {
@@ -337,8 +337,8 @@ function restoreBackup(backupId) {
                     });
                 } else {
                     Swal.fire({
-                        title: 'Error!',
-                        text: data.error || 'Failed to restore backup',
+                        title: 'Hata!',
+                        text: data.error || 'Yedek geri yüklenemedi',
                         icon: 'error',
                         confirmButtonColor: '#dc3545'
                     });
@@ -347,8 +347,8 @@ function restoreBackup(backupId) {
             .catch(error => {
                 console.error('Error:', error);
                 Swal.fire({
-                    title: 'Error!',
-                    text: 'Network error occurred',
+                    title: 'Hata!',
+                    text: 'Ağ hatası oluştu',
                     icon: 'error',
                     confirmButtonColor: '#dc3545'
                 });
@@ -365,8 +365,8 @@ function saveUpdateSettings() {
     const updateChannel = document.getElementById('updateChannel').value;
     
     Swal.fire({
-        title: 'Saving...',
-        text: 'Updating settings',
+        title: 'Kaydediliyor...',
+        text: 'Ayarlar güncelleniyor',
         allowOutsideClick: false,
         didOpen: () => {
             Swal.showLoading();
@@ -380,8 +380,8 @@ function saveUpdateSettings() {
     
     setTimeout(() => {
         Swal.fire({
-            title: 'Saved!',
-            text: 'Update settings have been saved',
+            title: 'Kaydedildi!',
+            text: 'Güncelleme ayarları kaydedildi',
             icon: 'success',
             timer: 2000,
             showConfirmButton: false
@@ -397,56 +397,54 @@ function uploadManualUpdate() {
     const file = fileInput.files[0];
     
     if (!file) {
-        Swal.fire('Error', 'Please select a ZIP file to upload', 'error');
+        Swal.fire('Hata', 'Lütfen yüklenecek bir ZIP dosyası seçin', 'error');
         return;
     }
     
     if (!file.name.endsWith('.zip')) {
-        Swal.fire('Error', 'Please select a valid ZIP file', 'error');
+        Swal.fire('Hata', 'Lütfen geçerli bir ZIP dosyası seçin', 'error');
         return;
     }
     
     Swal.fire({
-        title: 'Upload Manual Update',
+        title: 'Manuel Güncelleme Yükle',
         html: `
-            <p>You are about to install an update from <strong>${file.name}</strong></p>
-            <p class="text-warning"><i class="bi bi-exclamation-triangle"></i> Make sure this is a valid HLM release!</p>
-            <p>Continue?</p>
+            <p><strong>${file.name}</strong> dosyasından güncelleme yüklenecek</p>
+            <p class="text-warning"><i class="bi bi-exclamation-triangle"></i> Bunun geçerli bir HLM sürümü olduğundan emin olun!</p>
+            <p>Devam edilsin mi?</p>
         `,
         icon: 'warning',
         showCancelButton: true,
-        confirmButtonText: 'Yes, upload and install',
-        cancelButtonText: 'Cancel',
+        confirmButtonText: 'Evet, yükle ve kur',
+        cancelButtonText: 'İptal',
         confirmButtonColor: '#ffc107',
     }).then((result) => {
         if (result.isConfirmed) {
             const progressDiv = document.getElementById('uploadProgress');
             progressDiv.style.display = 'block';
             
-            // Create FormData
-            const formData = new FormData();
-            formData.append('update_file', file);
-            
             // Show progress
             Swal.fire({
-                title: 'Uploading...',
+                title: 'Yükleniyor...',
                 html: '<div class="progress"><div class="progress-bar progress-bar-striped progress-bar-animated" style="width: 100%"></div></div>',
                 allowOutsideClick: false,
                 showConfirmButton: false
             });
             
-            // Note: This would require a new API endpoint for manual uploads
-            // For now, show a placeholder message
+            // Note: This feature requires backend implementation
             setTimeout(() => {
                 Swal.fire({
-                    title: 'Not Implemented',
-                    text: 'Manual upload feature requires additional backend implementation',
+                    title: 'Uyarı',
+                    text: 'Manuel yükleme özelliği ek backend geliştirmesi gerektirmektedir. Şimdilik GitHub üzerinden otomatik güncelleme kullanabilirsiniz.',
                     icon: 'info'
                 });
                 progressDiv.style.display = 'none';
             }, 1500);
             
             /* Production implementation would be:
+            const formData = new FormData();
+            formData.append('update_file', file);
+            
             fetch(BASE_URL + '/api/system-update-upload.php', {
                 method: 'POST',
                 body: formData
@@ -455,14 +453,14 @@ function uploadManualUpdate() {
             .then(data => {
                 progressDiv.style.display = 'none';
                 if (data.success) {
-                    Swal.fire('Success!', data.message, 'success').then(() => location.reload());
+                    Swal.fire('Başarılı!', data.message, 'success').then(() => location.reload());
                 } else {
-                    Swal.fire('Error!', data.error, 'error');
+                    Swal.fire('Hata!', data.error, 'error');
                 }
             })
             .catch(error => {
                 progressDiv.style.display = 'none';
-                Swal.fire('Error!', 'Upload failed', 'error');
+                Swal.fire('Hata!', 'Yükleme başarısız', 'error');
             });
             */
         }

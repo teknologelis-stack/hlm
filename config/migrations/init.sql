@@ -61,7 +61,6 @@ CREATE TABLE IF NOT EXISTS system_backups (
     id INT AUTO_INCREMENT PRIMARY KEY,
     filename VARCHAR(255) NOT NULL,
     filepath VARCHAR(500) NOT NULL,
-    file_path VARCHAR(500),
     size_bytes BIGINT DEFAULT 0,
     backup_type ENUM('manual', 'auto', 'pre-update') DEFAULT 'manual',
     created_by INT,
