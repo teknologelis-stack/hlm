@@ -25,6 +25,7 @@ $displayRole = htmlspecialchars($currentUser['role_name'] ?? 'User');
     <title><?php echo $pageTitle ?? 'MikroTik Panel'; ?> - HLM</title>
     <link rel="stylesheet" href="<?php echo BASE_URL; ?>/assets/css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <?php if (!empty($extraCss)) echo $extraCss; ?>
 </head>
 <body>
     <!-- 🎉 v1.0.2 HEADER -->

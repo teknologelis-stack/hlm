@@ -19,6 +19,7 @@ $backups = $updateManager->getBackupHistory(10);
 $currentVersion = APP_VERSION;
 
 $pageTitle = 'Update Manager';
+$extraCss = '<link rel="stylesheet" href="' . BASE_URL . '/assets/css/update-manager.css">';
 require_once __DIR__ . '/../includes/header.php';
 ?>
 
@@ -31,7 +32,7 @@ require_once __DIR__ . '/../includes/header.php';
             </h1>
             <p class="text-muted">Sistem güncellemelerini yönetin</p>
         </div>
-        <div class="badge bg-primary fs-6">v<?php echo htmlspecialchars($currentVersion); ?></div>
+        <div class="update-version-badge">v<?php echo htmlspecialchars($currentVersion); ?></div>
     </div>
 
     <!-- System Information Card -->
@@ -81,7 +82,7 @@ require_once __DIR__ . '/../includes/header.php';
                     </h5>
                 </div>
                 <div class="card-body">
-                    <div class="d-grid gap-2 d-md-flex">
+                    <div class="d-grid gap-2 d-md-flex update-manager-actions">
                         <button id="checkUpdateBtn" class="btn btn-primary btn-lg" onclick="checkForUpdates()">
                             <i class="fas fa-search"></i> Check for Updates
                         </button>

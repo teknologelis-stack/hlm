@@ -5,7 +5,7 @@
 
 // Application constants
 define('APP_NAME', 'HLM - MikroTik Panel');
-define('APP_VERSION', '1.0.3');
+define('APP_VERSION', '1.0.4');
 
 // Base URL - Auto-detect
 $protocol = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https' : 'http';

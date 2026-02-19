@@ -1,0 +1,59 @@
+/**
+ * Update Manager CSS
+ * Styles specific to the Update Manager page
+ */
+
+/* Gradient header badge */
+.update-version-badge {
+    background: linear-gradient(135deg, #0d6efd, #0a58ca);
+    color: #fff;
+    font-size: 1rem;
+    padding: 0.4rem 0.9rem;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+}
+
+/* Card hover effect */
+.card.shadow-sm {
+    transition: box-shadow 0.2s ease-in-out;
+}
+
+.card.shadow-sm:hover {
+    box-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.12);
+}
+
+/* Card header consistent styling */
+.card-header.bg-white {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+    padding: 1rem 1.25rem;
+}
+
+/* Progress bar inside upload section */
+#uploadProgress .progress {
+    height: 1.25rem;
+    border-radius: 0.375rem;
+}
+
+/* Update check result area */
+#updateCheckResult .alert {
+    border-radius: 0.5rem;
+}
+
+/* Backup table monospace filenames */
+.font-monospace {
+    font-size: 0.85rem;
+}
+
+/* Responsive button group */
+@media (max-width: 576px) {
+    .update-manager-actions .btn {
+        width: 100%;
+        margin-bottom: 0.5rem;
+    }
+}
+
+/* Animated progress bar in update dialog */
+.progress-bar-animated {
+    animation-duration: 1.2s;
+}
