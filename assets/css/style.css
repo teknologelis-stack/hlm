@@ -318,3 +318,318 @@ body {
     color: #991b1b;
 }
 
+/* ========== ACCORDION SIDEBAR ========== */
+.nav-accordion {
+    cursor: pointer;
+    padding: 12px 20px;
+    color: #cbd5e1;
+    display: flex;
+    align-items: center;
+    transition: all 0.3s;
+    border-left: 3px solid transparent;
+}
+
+.nav-accordion:hover {
+    background: rgba(255, 255, 255, 0.05);
+    color: white;
+}
+
+.nav-accordion.active {
+    background: rgba(37, 99, 235, 0.1);
+    color: white;
+    border-left-color: var(--primary-color);
+}
+
+.nav-accordion-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+}
+
+.nav-accordion-header i:first-child {
+    font-size: 18px;
+    width: 20px;
+    text-align: center;
+}
+
+.nav-accordion-header span {
+    flex: 1;
+}
+
+.nav-arrow {
+    font-size: 12px;
+    transition: transform 0.3s;
+}
+
+.nav-accordion.active .nav-arrow {
+    transform: rotate(180deg);
+}
+
+.nav-accordion-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+    background: rgba(0, 0, 0, 0.2);
+}
+
+.nav-accordion-content .nav-item {
+    padding-left: 50px;
+}
+
+.nav-accordion-content .nav-item i {
+    font-size: 14px;
+}
+
+/* ========== HEADER SEARCH BAR ========== */
+.header-search {
+    flex: 1;
+    max-width: 500px;
+    margin: 0 20px;
+}
+
+.search-container {
+    position: relative;
+    width: 100%;
+}
+
+.search-input {
+    width: 100%;
+    padding: 10px 15px 10px 40px;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    font-size: 14px;
+    background: #f8fafc;
+    transition: all 0.3s;
+}
+
+.search-input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    background: white;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+.search-icon {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #94a3b8;
+}
+
+.search-results {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: white;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    max-height: 300px;
+    overflow-y: auto;
+    z-index: 1000;
+    display: none;
+    margin-top: 5px;
+}
+
+.search-result-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 15px;
+    color: #475569;
+    text-decoration: none;
+    transition: all 0.2s;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+.search-result-item:last-child {
+    border-bottom: none;
+}
+
+.search-result-item:hover {
+    background: #f8fafc;
+    color: var(--primary-color);
+}
+
+.search-result-item i {
+    width: 20px;
+    text-align: center;
+    color: #94a3b8;
+}
+
+.search-result-item:hover i {
+    color: var(--primary-color);
+}
+
+.search-no-results {
+    padding: 15px;
+    text-align: center;
+    color: #94a3b8;
+}
+
+/* ========== PAGE HEADER ========== */
+.page-header {
+    margin-bottom: 2rem;
+}
+
+.page-header h1 {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: #1e293b;
+    margin-bottom: 0.25rem;
+}
+
+.page-header p {
+    color: #64748b;
+    margin-bottom: 0;
+}
+
+/* ========== STATS CARDS ========== */
+.stats-card {
+    background: white;
+    border-radius: 16px;
+    padding: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+    border: 1px solid #f1f5f9;
+    transition: all 0.3s;
+}
+
+.stats-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+}
+
+.stats-icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    color: white;
+}
+
+.stats-icon.bg-primary { background: linear-gradient(135deg, #3b82f6, #2563eb); }
+.stats-icon.bg-success { background: linear-gradient(135deg, #10b981, #059669); }
+.stats-icon.bg-warning { background: linear-gradient(135deg, #f59e0b, #d97706); }
+.stats-icon.bg-danger { background: linear-gradient(135deg, #ef4444, #dc2626); }
+.stats-icon.bg-info { background: linear-gradient(135deg, #06b6d4, #0891b2); }
+
+.stats-info h3 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #1e293b;
+    margin: 0;
+}
+
+.stats-info p {
+    margin: 0;
+    color: #64748b;
+    font-size: 0.875rem;
+}
+
+/* ========== CARD STYLES ========== */
+.card {
+    border: none;
+    border-radius: 16px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+    background: white;
+    border: 1px solid #f1f5f9;
+    margin-bottom: 1.5rem;
+}
+
+.card-header {
+    background: white;
+    border-bottom: 1px solid #f1f5f9;
+    padding: 1.25rem 1.5rem;
+}
+
+.card-header h5 {
+    margin: 0;
+    font-weight: 600;
+    color: #1e293b;
+    display: flex;
+    align-items: center;
+}
+
+.card-body {
+    padding: 1.5rem;
+}
+
+/* ========== FORM STYLES ========== */
+.form-label {
+    font-weight: 600;
+    color: #374151;
+    margin-bottom: 0.5rem;
+}
+
+.form-control, .form-select {
+    border-radius: 10px;
+    border: 1px solid #e2e8f0;
+    padding: 0.75rem 1rem;
+    font-size: 0.9rem;
+    transition: all 0.2s;
+}
+
+.form-control:focus, .form-select:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+/* ========== BUTTONS ========== */
+.btn-primary {
+    background: linear-gradient(135deg, #3b82f6, #2563eb);
+    border: none;
+    border-radius: 10px;
+    padding: 0.75rem 1.5rem;
+    font-weight: 600;
+    transition: all 0.3s;
+}
+
+.btn-primary:hover {
+    background: linear-gradient(135deg, #2563eb, #1d4ed8);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(37, 99, 235, 0.3);
+}
+
+.btn-success {
+    background: linear-gradient(135deg, #10b981, #059669);
+    border: none;
+    border-radius: 10px;
+}
+
+.btn-danger {
+    background: linear-gradient(135deg, #ef4444, #dc2626);
+    border: none;
+    border-radius: 10px;
+}
+
+/* ========== RESPONSIVE ========== */
+@media (max-width: 991px) {
+    .header-search {
+        display: none;
+    }
+}
+
+@media (max-width: 768px) {
+    .main-content {
+        margin-left: 0 !important;
+        width: 100% !important;
+    }
+    
+    .content-wrapper {
+        padding: 15px;
+    }
+    
+    .stats-card {
+        margin-bottom: 1rem;
+    }
+}
+

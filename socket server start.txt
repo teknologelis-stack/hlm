@@ -1,0 +1,8 @@
+cd socket-server
+npm install pm2 -g
+pm2 start server.js --name mikrotik-socket
+pm2 save
+pm2 startup
+Çıktıda verilen komutu çalıştır (sistem başlangıcı için).
+
+schtasks /create /tn "MikrotikSocket" /tr "C:\xampp\htdocs\socket-server\socket-start.bat" /sc onstart /rl highest
