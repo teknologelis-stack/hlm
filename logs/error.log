@@ -1,0 +1,43 @@
+[18-Feb-2026 00:42:02 Europe/Berlin] [UpdateManager] ========================================
+[18-Feb-2026 00:42:02 Europe/Berlin] [UpdateManager] Starting update to version: 1.0.3
+[18-Feb-2026 00:42:02 Europe/Berlin] [UpdateManager] User ID: 1
+[18-Feb-2026 00:42:02 Europe/Berlin] [UpdateManager] ========================================
+[18-Feb-2026 00:42:02 Europe/Berlin] [UpdateManager] STEP 1: Starting database transaction
+[18-Feb-2026 00:42:02 Europe/Berlin] [UpdateManager] STEP 2: Creating pre-update backup
+[18-Feb-2026 00:42:02 Europe/Berlin] [UpdateManager] SUCCESS: Backup created with ID: 3
+[18-Feb-2026 00:42:02 Europe/Berlin] [UpdateManager] STEP 3: Fetching release information from GitHub
+[18-Feb-2026 00:42:03 Europe/Berlin] [UpdateManager] SUCCESS: Release info retrieved - URL: https://api.github.com/repos/teknologelis-stack/hlm/zipball/v1.0.3
+[18-Feb-2026 00:42:03 Europe/Berlin] [UpdateManager] STEP 4: Downloading release ZIP file
+[18-Feb-2026 00:42:03 Europe/Berlin] [UpdateManager] Download path: C:\xampp\htdocs/temp/update-1.0.3.zip
+[18-Feb-2026 00:42:04 Europe/Berlin] [UpdateManager] SUCCESS: ZIP file downloaded, size: 84015 bytes
+[18-Feb-2026 00:42:04 Europe/Berlin] [UpdateManager] STEP 5: Extracting ZIP file
+[18-Feb-2026 00:42:04 Europe/Berlin] [UpdateManager] SUCCESS: ZIP extracted to: C:\xampp\htdocs/temp/update-1.0.3/
+[18-Feb-2026 00:42:04 Europe/Berlin] [UpdateManager] STEP 6: Applying files to application
+[18-Feb-2026 00:42:04 Europe/Berlin] [UpdateManager] SUCCESS: Files applied
+[18-Feb-2026 00:42:04 Europe/Berlin] [UpdateManager] STEP 7: Running migrations
+[18-Feb-2026 00:42:04 Europe/Berlin] [UpdateManager] SUCCESS: Migrations completed
+[18-Feb-2026 00:42:04 Europe/Berlin] [UpdateManager] STEP 8: Updating version in database
+[18-Feb-2026 00:42:04 Europe/Berlin] [UpdateManager] SUCCESS: Version updated to: 1.0.3
+[18-Feb-2026 00:42:04 Europe/Berlin] [UpdateManager] STEP 9: Recording update in database
+[18-Feb-2026 00:42:04 Europe/Berlin] [UpdateManager] SUCCESS: Update recorded in database
+[18-Feb-2026 00:42:04 Europe/Berlin] [UpdateManager] STEP 10: Cleaning up temporary files
+[18-Feb-2026 00:42:04 Europe/Berlin] [UpdateManager] SUCCESS: Cleanup completed
+[18-Feb-2026 00:42:04 Europe/Berlin] [UpdateManager] STEP 11: Committing database transaction
+[18-Feb-2026 00:42:04 Europe/Berlin] [UpdateManager] SUCCESS: Transaction committed
+[18-Feb-2026 00:42:04 Europe/Berlin] [UpdateManager] ========================================
+[18-Feb-2026 00:42:04 Europe/Berlin] [UpdateManager] Update completed successfully!
+[18-Feb-2026 00:42:04 Europe/Berlin] [UpdateManager] ========================================
+[18-Feb-2026 00:47:18 Europe/Berlin] PHP Warning:  Undefined array key "file_size" in C:\xampp\htdocs\pages\update-manager.php on line 284
+[18-Feb-2026 00:47:18 Europe/Berlin] PHP Warning:  Undefined array key "file_size" in C:\xampp\htdocs\pages\update-manager.php on line 284
+[18-Feb-2026 00:47:18 Europe/Berlin] PHP Warning:  Undefined array key "file_size" in C:\xampp\htdocs\pages\update-manager.php on line 284
+[18-Feb-2026 00:47:35 Europe/Berlin] PHP Warning:  Undefined array key "file_size" in C:\xampp\htdocs\pages\update-manager.php on line 284
+[18-Feb-2026 00:47:35 Europe/Berlin] PHP Warning:  Undefined array key "file_size" in C:\xampp\htdocs\pages\update-manager.php on line 284
+[18-Feb-2026 00:47:35 Europe/Berlin] PHP Warning:  Undefined array key "file_size" in C:\xampp\htdocs\pages\update-manager.php on line 284
+[19-Feb-2026 19:03:20 Europe/Berlin] [index.php] Login form submitted for username: admin
+[19-Feb-2026 19:03:20 Europe/Berlin] [index.php] Attempting login for user: admin
+[19-Feb-2026 19:03:20 Europe/Berlin] [Auth] Login attempt for user: admin
+[19-Feb-2026 19:03:20 Europe/Berlin] [Auth] User found: admin, role: Admin, is_active: 1
+[19-Feb-2026 19:03:20 Europe/Berlin] [Auth] Password hash from DB: $2y$10$zf/XLUd3TbGRE9C3qHNCSO/Hq.CPJLcAi1inIA6idUwWyVebjnnRe
+[19-Feb-2026 19:03:20 Europe/Berlin] [Auth] Password verified successfully using bcrypt
+[19-Feb-2026 19:03:20 Europe/Berlin] [Auth] Login successful for user: admin
+[19-Feb-2026 19:03:20 Europe/Berlin] [index.php] Login successful, redirecting to dashboard
